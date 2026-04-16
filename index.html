@@ -250,7 +250,7 @@ var b=document.createElement(“div”);b.className=“set-badge”;b.textConten
 var wi=document.createElement(“input”);wi.type=“number”;wi.inputMode=“decimal”;wi.placeholder=“lbs (opt)”;wi.id=“sw”+i;wi.value=wv||””;
 var ri=document.createElement(“input”);ri.type=“text”;ri.placeholder=“reps/time/dist”;ri.id=“sr2”+i;ri.value=rv||””;
 row.appendChild(b);row.appendChild(wi);row.appendChild(ri);
-if(i>0){var x=document.createElement(“button”);x.innerHTML=”×”;x.style.cssText=“background:var(–c2);border:1px solid var(–bor);color:var(–mut);border-radius:8px;width:32px;height:32px;font-size:20px;cursor:pointer;flex-shrink:0”;x.onclick=(function(n){return function(){var r=gel(“sr”+n);if(r)r.remove();};})(i);row.appendChild(x);}
+if(i>0){var x=document.createElement(“button”);x.innerHTML=”×”;x.style.cssText=“background:#13141f;border:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.36);border-radius:8px;width:32px;height:32px;font-size:20px;cursor:pointer;flex-shrink:0”;x.onclick=(function(n){return function(){var r=gel(“sr”+n);if(r)r.remove();};})(i);row.appendChild(x);}
 return row;
 }
 function resetSets(){SC=1;var c=gel(“sc”);c.innerHTML=””;c.appendChild(makeSetRow(0,””,””));}
@@ -313,19 +313,19 @@ for(var i=0;i<names.length;i++){
 (function(name,i){
 var pr=prs[name];
 var row=document.createElement(“div”);
-row.style.cssText=“display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:”+(i<names.length-1?“1px solid var(–bor)”:“none”);
+row.style.cssText=“display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:”+(i<names.length-1?“1px solid rgba(255,255,255,0.07)”:“none”);
 var left=document.createElement(“div”);
 var nm=document.createElement(“div”);nm.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:16px”;nm.textContent=name;left.appendChild(nm);
-if(pr){var dt=document.createElement(“div”);dt.style.cssText=“font-size:11px;color:var(–mut);margin-top:1px”;dt.textContent=pr.date;left.appendChild(dt);}
+if(pr){var dt=document.createElement(“div”);dt.style.cssText=“font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px”;dt.textContent=pr.date;left.appendChild(dt);}
 row.appendChild(left);
 if(pr){
 var right=document.createElement(“div”);right.style.textAlign=“right”;
-var vl=document.createElement(“div”);vl.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:22px;color:var(–acc)”;vl.textContent=pr.val;
-var ub=document.createElement(“button”);ub.style.cssText=“font-size:11px;color:var(–mut);background:none;border:none;cursor:pointer”;ub.textContent=“UPDATE”;
+var vl=document.createElement(“div”);vl.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:22px;color:#A855F7”;vl.textContent=pr.val;
+var ub=document.createElement(“button”);ub.style.cssText=“font-size:11px;color:rgba(255,255,255,0.36);background:none;border:none;cursor:pointer”;ub.textContent=“UPDATE”;
 ub.onclick=(function(n){return function(){gel(“prk”).value=n;var p=PRTAB===“lifts”?LP[n]:RP[n];if(p){gel(“prv”).value=p.val;gel(“prd”).value=p.date;}};})(name);
 right.appendChild(vl);right.appendChild(ub);row.appendChild(right);
 }else{
-var lb=document.createElement(“button”);lb.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:var(–acc);background:none;border:1px solid var(–acc-bor);border-radius:7px;padding:5px 10px;cursor:pointer”;lb.textContent=”+ LOG”;
+var lb=document.createElement(“button”);lb.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:#A855F7;background:none;border:1px solid rgba(168,85,247,0.25);border-radius:7px;padding:5px 10px;cursor:pointer”;lb.textContent=”+ LOG”;
 lb.onclick=(function(n){return function(){gel(“prk”).value=n;};})(name);row.appendChild(lb);
 }
 list.appendChild(row);
@@ -349,7 +349,7 @@ var chip=document.createElement(“div”);
 chip.className=“day-chip”+(CDAY===i?” on”:””);
 chip.onclick=function(){CDAY=(CDAY===i?null:i);renderProg();};
 var lbl=document.createElement(“div”);lbl.className=“dcl”;lbl.textContent=d.day;
-var cnt=document.createElement(“div”);cnt.style.cssText=“font-size:9px;color:var(–mut);margin-top:1px”;cnt.textContent=d.ex.length+“EX”;
+var cnt=document.createElement(“div”);cnt.style.cssText=“font-size:9px;color:rgba(255,255,255,0.36);margin-top:1px”;cnt.textContent=d.ex.length+“EX”;
 chip.appendChild(lbl);chip.appendChild(cnt);
 if(i===TI){var dot=document.createElement(“div”);dot.className=“ddot”;chip.appendChild(dot);}
 chips.appendChild(chip);
@@ -360,11 +360,11 @@ if(CDAY===null){
 for(var i=0;i<prog.length;i++){
 (function(d,i){
 var card=document.createElement(“div”);card.className=“card”;card.style.marginBottom=“10px”;
-var bg=i===TI?“var(–acc)”:“var(–c2)”;
+var bg=i===TI?”#A855F7”:”#13141f”;
 var prev=””;for(var j=0;j<Math.min(3,d.ex.length);j++)prev+=”- “+d.ex[j].n+” “+d.ex[j].s+“x”+d.ex[j].r+”<br>”;
 if(d.ex.length>3)prev+=”+”+(d.ex.length-3)+” more”;
-var tl=i===TI?”<span style='font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:11px;color:var(--acc)'>TODAY</span>”:””;
-card.innerHTML=”<div style='padding:13px 16px 10px;display:flex;gap:10px;align-items:center'><div style='background:"+bg+";border-radius:7px;padding:3px 10px;font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:#fff'>”+d.day+”</div><div style='flex:1'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:17px'>”+d.name+”</div><div style='font-size:11px;color:var(--mut)'>”+d.ex.length+” exercises</div></div>”+tl+”</div><div style='padding:0 16px 13px;font-size:13px;color:var(--mut)'>”+prev+”</div>”;
+var tl=i===TI?”<span style='font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:11px;color:#A855F7'>TODAY</span>”:””;
+card.innerHTML=”<div style='padding:13px 16px 10px;display:flex;gap:10px;align-items:center'><div style='background:"+bg+";border-radius:7px;padding:3px 10px;font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:#fff'>”+d.day+”</div><div style='flex:1'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:17px'>”+d.name+”</div><div style='font-size:11px;color:rgba(255,255,255,0.36)'>”+d.ex.length+” exercises</div></div>”+tl+”</div><div style='padding:0 16px 13px;font-size:13px;color:rgba(255,255,255,0.36)'>”+prev+”</div>”;
 pc.appendChild(card);
 })(prog[i],i);
 }
@@ -372,19 +372,19 @@ pc.appendChild(card);
 var d=prog[CDAY];
 var card=document.createElement(“div”);card.className=“card”;
 var hdr=document.createElement(“div”);
-hdr.innerHTML=”<div style='padding:16px 16px 10px'><div style='display:flex;gap:10px;align-items:center;margin-bottom:4px'><div style='background:var(--acc);border-radius:7px;padding:3px 12px;font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:14px;color:#fff'>”+d.day+”</div><div style='font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:20px'>”+d.name+”</div></div></div>”;
+hdr.innerHTML=”<div style='padding:16px 16px 10px'><div style='display:flex;gap:10px;align-items:center;margin-bottom:4px'><div style='background:#A855F7;border-radius:7px;padding:3px 12px;font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:14px;color:#fff'>”+d.day+”</div><div style='font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:20px'>”+d.name+”</div></div></div>”;
 card.appendChild(hdr);
 var ew=document.createElement(“div”);ew.style.padding=“0 16px 6px”;
 for(var j=0;j<d.ex.length;j++){
 (function(ex,j){
 var sw=CPT===“gym”?calcW(ex.n,ex.intensity):null;
 var row=document.createElement(“div”);
-row.style.cssText=“display:flex;gap:10px;align-items:flex-start;padding:13px 0;border-bottom:”+(j<d.ex.length-1?“1px solid var(–bor)”:“none”);
-var num=document.createElement(“div”);num.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:18px;color:var(–acc);width:22px;flex-shrink:0”;num.textContent=j+1;
+row.style.cssText=“display:flex;gap:10px;align-items:flex-start;padding:13px 0;border-bottom:”+(j<d.ex.length-1?“1px solid rgba(255,255,255,0.07)”:“none”);
+var num=document.createElement(“div”);num.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:18px;color:#A855F7;width:22px;flex-shrink:0”;num.textContent=j+1;
 var info=document.createElement(“div”);info.style.flex=“1”;
 var rl=typeof ex.r===“number”?ex.r+” reps”:ex.r;
-info.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:16px'>”+ex.n+”</div><div style='font-size:12px;color:var(--mut);margin-top:1px'>”+ex.s+” sets x “+rl+”</div>”+(sw?”<div class='prb'>Target: “+sw+” lbs</div>”:””)+(ex.tip?”<div class='tipt'>”+ex.tip+”</div>”:””);
-var btn=document.createElement(“button”);btn.style.cssText=“background:var(–c2);border:1px solid var(–bor);color:var(–acc);border-radius:8px;padding:6px 12px;font-size:12px;font-family:Barlow Condensed,sans-serif;font-weight:800;cursor:pointer;flex-shrink:0”;btn.textContent=“LOG”;
+info.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:16px'>”+ex.n+”</div><div style='font-size:12px;color:rgba(255,255,255,0.36);margin-top:1px'>”+ex.s+” sets x “+rl+”</div>”+(sw?”<div class='prb'>Target: “+sw+” lbs</div>”:””)+(ex.tip?”<div class='tipt'>”+ex.tip+”</div>”:””);
+var btn=document.createElement(“button”);btn.style.cssText=“background:#13141f;border:1px solid rgba(255,255,255,0.07);color:#A855F7;border-radius:8px;padding:6px 12px;font-size:12px;font-family:Barlow Condensed,sans-serif;font-weight:800;cursor:pointer;flex-shrink:0”;btn.textContent=“LOG”;
 btn.onclick=(function(n,w,r){return function(){openLog(n,w,r);};})(ex.n,sw||””,ex.r);
 row.appendChild(num);row.appendChild(info);row.appendChild(btn);ew.appendChild(row);
 })(d.ex[j],j);
@@ -412,7 +412,7 @@ cats.forEach(function(cat){
 var hdr=document.createElement(“div”);hdr.className=“fch”;hdr.textContent=cat.toUpperCase();res.appendChild(hdr);
 grouped[cat].forEach(function(f){
 var btn=document.createElement(“button”);btn.className=“fr”;
-btn.innerHTML=”<div><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:14px'>”+f.name+”</div><div style='font-size:11px;color:var(--mut);margin-top:1px'>”+f.pro+“g pro - “+f.carb+“g carbs - “+f.fat+“g fat</div></div><div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:16px;color:var(--acc);flex-shrink:0;margin-left:8px'>”+f.cal+”</div>”;
+btn.innerHTML=”<div><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:14px'>”+f.name+”</div><div style='font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px'>”+f.pro+“g pro - “+f.carb+“g carbs - “+f.fat+“g fat</div></div><div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:16px;color:#A855F7;flex-shrink:0;margin-left:8px'>”+f.cal+”</div>”;
 btn.onclick=(function(fd){return function(){addFood(fd);};})(f);
 res.appendChild(btn);
 });
@@ -436,20 +436,20 @@ showToast(“Added!”);renderFoodLog();renderMacroSummary();if(CV===“home”)
 function removeFood(id){ML[TODAY]=(ML[TODAY]||[]).filter(function(f){return f.id!==id;});saveKey(PFX+“meals”,ML);renderFoodLog();renderMacroSummary();if(CV===“home”)renderHome();}
 function renderFoodLog(){
 var meals=ML[TODAY]||[];var fl=gel(“flog”);fl.innerHTML=””;
-if(!meals.length){fl.innerHTML=”<div style='text-align:center;padding:30px 0;color:var(--mut)'><div style='font-size:36px;margin-bottom:8px'>🍽</div><div style='font-family:Barlow Condensed,sans-serif;font-size:16px'>No food logged yet today.</div></div>”;return;}
+if(!meals.length){fl.innerHTML=”<div style='text-align:center;padding:30px 0;color:rgba(255,255,255,0.36)'><div style='font-size:36px;margin-bottom:8px'>🍽</div><div style='font-family:Barlow Condensed,sans-serif;font-size:16px'>No food logged yet today.</div></div>”;return;}
 var MTS=[“Breakfast”,“Morning Snack”,“Lunch”,“Pre-Workout”,“Post-Workout”,“Dinner”,“Evening Snack”];
 MTS.forEach(function(mt){
 var items=meals.filter(function(f){return f.mt===mt;});if(!items.length)return;
 var wrap=document.createElement(“div”);wrap.style.marginBottom=“14px”;
-var hdr=document.createElement(“div”);hdr.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:var(–acc);letter-spacing:1px;margin-bottom:6px”;hdr.textContent=mt.toUpperCase();wrap.appendChild(hdr);
+var hdr=document.createElement(“div”);hdr.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:#A855F7;letter-spacing:1px;margin-bottom:6px”;hdr.textContent=mt.toUpperCase();wrap.appendChild(hdr);
 var card=document.createElement(“div”);card.className=“card”;card.style.padding=“4px 0”;
 items.forEach(function(f,idx){
-var row=document.createElement(“div”);row.style.cssText=“display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:”+(idx<items.length-1?“1px solid var(–bor)”:“none”);
+var row=document.createElement(“div”);row.style.cssText=“display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:”+(idx<items.length-1?“1px solid rgba(255,255,255,0.07)”:“none”);
 var left=document.createElement(“div”);left.style.flex=“1”;
-left.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:15px'>”+f.name+”</div><div style='font-size:11px;color:var(--mut);margin-top:1px'>”+f.pro+“g pro - “+f.carb+“g carbs - “+f.fat+“g fat</div>”;
+left.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:15px'>”+f.name+”</div><div style='font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px'>”+f.pro+“g pro - “+f.carb+“g carbs - “+f.fat+“g fat</div>”;
 var right=document.createElement(“div”);right.style.cssText=“display:flex;align-items:center;gap:10px”;
-var cv=document.createElement(“div”);cv.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:16px;color:var(–acc)”;cv.textContent=f.cal;
-var xb=document.createElement(“button”);xb.style.cssText=“background:none;border:none;color:var(–mut);font-size:20px;cursor:pointer;padding:2px 6px”;xb.innerHTML=”×”;
+var cv=document.createElement(“div”);cv.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:16px;color:#A855F7”;cv.textContent=f.cal;
+var xb=document.createElement(“button”);xb.style.cssText=“background:none;border:none;color:rgba(255,255,255,0.36);font-size:20px;cursor:pointer;padding:2px 6px”;xb.innerHTML=”×”;
 xb.onclick=(function(fid){return function(){removeFood(fid);};})(f.id);
 right.appendChild(cv);right.appendChild(xb);row.appendChild(left);row.appendChild(right);card.appendChild(row);
 });
@@ -476,15 +476,15 @@ var tc=meals.reduce(function(a,m){return a+m.cal;},0),tp=meals.reduce(function(a
 var m=getMacros();var pct=m.cal?Math.min(100,Math.round(tc/m.cal*100)):0;
 var ms=gel(“msum”);ms.innerHTML=””;
 var t=document.createElement(“div”);t.style.cssText=“display:flex;justify-content:space-between;align-items:center;margin-bottom:12px”;
-t.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:28px;color:var(--acc)'>”+tc+” cal</div><div style='text-align:right'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:var(--mut)'>GOAL</div><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:18px'>”+(m.cal||”–”)+” kcal</div></div>”;
+t.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:28px;color:#A855F7'>”+tc+” cal</div><div style='text-align:right'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.36)'>GOAL</div><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:18px'>”+(m.cal||”–”)+” kcal</div></div>”;
 ms.appendChild(t);
 var bar=document.createElement(“div”);bar.style.cssText=“height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden;margin-bottom:14px”;
-var fill=document.createElement(“div”);fill.style.cssText=“height:100%;width:”+pct+”%;background:linear-gradient(90deg,var(–acc),var(–acc2));border-radius:4px”;bar.appendChild(fill);ms.appendChild(bar);
+var fill=document.createElement(“div”);fill.style.cssText=“height:100%;width:”+pct+”%;background:linear-gradient(90deg,#A855F7,#06b6d4);border-radius:4px”;bar.appendChild(fill);ms.appendChild(bar);
 var grid=document.createElement(“div”);grid.style.cssText=“display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px”;
 [[“Protein”,tp,m.pro,”#60a5fa”],[“Carbs”,tcarb,m.carb,”#34d399”],[“Fat”,tf,m.fat,”#fbbf24”]].forEach(function(x){
 var over=x[2]&&x[1]>x[2];var box=document.createElement(“div”);
-box.style.cssText=“background:var(–c2);border-radius:10px;padding:10px 8px;text-align:center”;
-box.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:20px;color:"+(over?"#f87171":x[3])+"'>”+x[1]+“g</div><div style='font-size:10px;color:var(--mut);letter-spacing:1px'>”+x[0].toUpperCase()+”</div><div style='font-size:10px;color:var(--mut)'>/ “+(x[2]||”–”)+“g</div>”;
+box.style.cssText=“background:#13141f;border-radius:10px;padding:10px 8px;text-align:center”;
+box.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:20px;color:"+(over?"#f87171":x[3])+"'>”+x[1]+“g</div><div style='font-size:10px;color:rgba(255,255,255,0.36);letter-spacing:1px'>”+x[0].toUpperCase()+”</div><div style='font-size:10px;color:rgba(255,255,255,0.36)'>/ “+(x[2]||”–”)+“g</div>”;
 grid.appendChild(box);
 });
 ms.appendChild(grid);
@@ -497,13 +497,13 @@ var m=getMacros();
 gel(“mctl”).textContent=m.calLabel||“Enter weight”;
 gel(“mcsub”).textContent=m.calSub||“Enter bodyweight for personalized targets”;
 var mp=gel(“mprog”);mp.innerHTML=””;
-[[“Calories”,tc,m.cal,“var(–acc)”],[“Protein”,tp,m.pro,”#60a5fa”],[“Carbs”,tcarb,m.carb,”#34d399”],[“Fat”,tf,m.fat,”#fbbf24”]].forEach(function(b){
+[[“Calories”,tc,m.cal,”#A855F7”],[“Protein”,tp,m.pro,”#60a5fa”],[“Carbs”,tcarb,m.carb,”#34d399”],[“Fat”,tf,m.fat,”#fbbf24”]].forEach(function(b){
 var pct=b[2]?Math.min(100,Math.round(b[1]/b[2]*100)):0;var over=b[2]&&b[1]>b[2];
 var wrap=document.createElement(“div”);wrap.style.marginBottom=“14px”;
 var top=document.createElement(“div”);top.style.cssText=“display:flex;justify-content:space-between;margin-bottom:5px”;
 var lbl=document.createElement(“span”);lbl.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:14px”;lbl.textContent=b[0];
 var val=document.createElement(“span”);val.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:14px;color:”+(over?”#f87171”:b[3]);val.textContent=b[1]+(b[0]===“Calories”?””:” g”);
-var sub=document.createElement(“span”);sub.style.cssText=“color:var(–mut);font-size:12px”;sub.textContent=” / “+(b[2]||”–”)+(b[0]===“Calories”?””:” g”);
+var sub=document.createElement(“span”);sub.style.cssText=“color:rgba(255,255,255,0.36);font-size:12px”;sub.textContent=” / “+(b[2]||”–”)+(b[0]===“Calories”?””:” g”);
 val.appendChild(sub);top.appendChild(lbl);top.appendChild(val);
 var track=document.createElement(“div”);track.style.cssText=“height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden”;
 var fi=document.createElement(“div”);fi.style.cssText=“height:100%;width:”+pct+”%;background:”+(over?”#f87171”:b[3])+”;border-radius:4px;transition:width .4s”;
@@ -523,12 +523,12 @@ var gl=gel(“hglance”);if(!gl)return;gl.innerHTML=””;
 var card=document.createElement(“div”);card.className=“card cp”;card.style.marginBottom=“10px”;
 var calPct=m.cal?Math.min(100,Math.round(tc/m.cal*100)):0;
 var remain=m.cal?m.cal-tc:null;
-card.innerHTML=”<div style='margin-bottom:10px'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;color:var(--mut)'>CALORIES TODAY</div><div style='display:flex;align-items:baseline;gap:6px;margin-top:3px'><span style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:36px;line-height:1;color:var(--acc)'>”+tc+”</span><span style='font-size:13px;color:var(--mut)'>”+(m.cal?”/ “+m.cal+” kcal”:””)+”</span><span style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:15px;color:"+(remain!==null&&remain<=0?"#22c55e":"var(--acc)")+";margin-left:auto'>”+(remain!==null?(remain>0?remain+” left”:“Done!”):””)+”</span></div></div><div style='height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden;margin-bottom:12px'><div style='height:100%;width:"+calPct+"%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:4px'></div></div>”;
+card.innerHTML=”<div style='margin-bottom:10px'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.36)'>CALORIES TODAY</div><div style='display:flex;align-items:baseline;gap:6px;margin-top:3px'><span style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:36px;line-height:1;color:#A855F7'>”+tc+”</span><span style='font-size:13px;color:rgba(255,255,255,0.36)'>”+(m.cal?”/ “+m.cal+” kcal”:””)+”</span><span style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:15px;color:"+(remain!==null&&remain<=0?"#22c55e":"#A855F7")+";margin-left:auto'>”+(remain!==null?(remain>0?remain+” left”:“Done!”):””)+”</span></div></div><div style='height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden;margin-bottom:12px'><div style='height:100%;width:"+calPct+"%;background:linear-gradient(90deg,#A855F7,#06b6d4);border-radius:4px'></div></div>”;
 var grid=document.createElement(“div”);grid.style.cssText=“display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px”;
 [[“PROTEIN”,tp,m.pro,”#60a5fa”],[“CARBS”,tcarb,m.carb,”#34d399”],[“FAT”,tf,m.fat,”#fbbf24”]].forEach(function(x){
 var pct=x[2]?Math.min(100,Math.round(x[1]/x[2]*100)):0;var over=x[2]&&x[1]>x[2];
 var box=document.createElement(“div”);
-box.innerHTML=”<div style='display:flex;justify-content:space-between;margin-bottom:4px'><span style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:"+(over?"#f87171":x[3])+"'>”+x[0]+”</span><span style='font-size:11px;color:var(--mut)'>”+x[1]+“g</span></div><div style='height:5px;border-radius:3px;background:rgba(255,255,255,0.07);overflow:hidden'><div style='height:100%;width:"+pct+"%;background:"+(over?"#f87171":x[3])+";border-radius:3px'></div></div><div style='font-size:10px;color:var(--mut);margin-top:3px'>”+(x[2]?”/ “+x[2]+“g”:””)+”</div>”;
+box.innerHTML=”<div style='display:flex;justify-content:space-between;margin-bottom:4px'><span style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:"+(over?"#f87171":x[3])+"'>”+x[0]+”</span><span style='font-size:11px;color:rgba(255,255,255,0.36)'>”+x[1]+“g</span></div><div style='height:5px;border-radius:3px;background:rgba(255,255,255,0.07);overflow:hidden'><div style='height:100%;width:"+pct+"%;background:"+(over?"#f87171":x[3])+";border-radius:3px'></div></div><div style='font-size:10px;color:rgba(255,255,255,0.36);margin-top:3px'>”+(x[2]?”/ “+x[2]+“g”:””)+”</div>”;
 grid.appendChild(box);
 });
 card.appendChild(grid);
@@ -608,9 +608,9 @@ renderHomeGlance();renderGoals2();renderRecent();
 function renderGoals2(){
 var gs=getGoals(),gl=gel(“goals”);gl.innerHTML=””;
 gs.forEach(function(g,i){
-var row=document.createElement(“div”);row.style.cssText=“display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:”+(i<gs.length-1?“1px solid var(–bor)”:“none”);
-var dot=document.createElement(“div”);dot.style.cssText=“width:7px;height:7px;border-radius:50%;background:”+(g.done?”#22c55e”:“var(–acc)”)+”;flex-shrink:0;margin-top:5px”;
-var txt=document.createElement(“div”);txt.style.cssText=“font-size:13px;line-height:1.5;color:”+(g.done?”#86efac”:“var(–fg)”);txt.textContent=g.txt;
+var row=document.createElement(“div”);row.style.cssText=“display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:”+(i<gs.length-1?“1px solid rgba(255,255,255,0.07)”:“none”);
+var dot=document.createElement(“div”);dot.style.cssText=“width:7px;height:7px;border-radius:50%;background:”+(g.done?”#22c55e”:”#A855F7”)+”;flex-shrink:0;margin-top:5px”;
+var txt=document.createElement(“div”);txt.style.cssText=“font-size:13px;line-height:1.5;color:”+(g.done?”#86efac”:”#edf0f7”);txt.textContent=g.txt;
 row.appendChild(dot);row.appendChild(txt);gl.appendChild(row);
 });
 }
@@ -619,8 +619,8 @@ function renderRecent(){
 gel(“rech”).style.display=WL.length?“block”:“none”;
 var rl=gel(“reclist”);rl.innerHTML=””;
 WL.slice(0,4).forEach(function(log){
-var d=document.createElement(“div”);d.style.cssText=“border-left:3px solid var(–acc);padding-left:14px;margin-bottom:14px”;
-d.innerHTML=”<div style='display:flex;justify-content:space-between'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:17px'>”+log.ex+”</div><div style='font-size:11px;color:var(--mut)'>”+log.date+”</div></div><div style='font-size:13px;color:rgba(255,255,255,0.42);margin-top:3px'>”+log.sets.map(function(s){return s.w?s.w+“lbs x “+s.r:s.r;}).join(” - “)+”</div>”+(log.note?”<div style='font-size:12px;color:var(--mut);font-style:italic;margin-top:2px'>”+log.note+”</div>”:””);
+var d=document.createElement(“div”);d.style.cssText=“border-left:3px solid #A855F7;padding-left:14px;margin-bottom:14px”;
+d.innerHTML=”<div style='display:flex;justify-content:space-between'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:17px'>”+log.ex+”</div><div style='font-size:11px;color:rgba(255,255,255,0.36)'>”+log.date+”</div></div><div style='font-size:13px;color:rgba(255,255,255,0.42);margin-top:3px'>”+log.sets.map(function(s){return s.w?s.w+“lbs x “+s.r:s.r;}).join(” - “)+”</div>”+(log.note?”<div style='font-size:12px;color:rgba(255,255,255,0.36);font-style:italic;margin-top:2px'>”+log.note+”</div>”:””);
 rl.appendChild(d);
 });
 }
