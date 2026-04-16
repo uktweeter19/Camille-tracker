@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -231,225 +230,225 @@ var FOOD_DB=[
 ];
 
 var _CK=3000;
-function _enc(v){try{return btoa(unescape(encodeURIComponent(JSON.stringify(v))));}catch(e){return “”;}}
+function _enc(v){try{return btoa(unescape(encodeURIComponent(JSON.stringify(v))));}catch(e){return "";}}
 function _dec(s){try{return JSON.parse(decodeURIComponent(escape(atob(s))));}catch(e){return null;}}
-function _setC(n,v){try{var e=new Date();e.setTime(e.getTime()+365*864e5);var ex=”;expires=”+e.toUTCString()+”;path=/;SameSite=Lax”;var ch=[];while(v.length>0){ch.push(v.slice(0,_CK));v=v.slice(_CK);}for(var i=0;i<10;i++)document.cookie=n+”_k”+i+”=;expires=Thu,01 Jan 1970 00:00:00 UTC;path=/”;if(ch.length===1){document.cookie=n+”=”+ch[0]+ex;}else{document.cookie=n+”=C”+ch.length+ex;for(var i=0;i<ch.length;i++)document.cookie=n+”_k”+i+”=”+ch[i]+ex;}}catch(e){}}
-function _getC(n){try{var all=document.cookie.split(”;”);var v=null;for(var i=0;i<all.length;i++){var p=all[i].trim().split(”=”);if(p[0]===n){v=p.slice(1).join(”=”);break;}}if(!v)return null;if(v[0]===“C”){var cnt=parseInt(v.slice(1));var ch=[];for(var i=0;i<cnt;i++){var cv=null;for(var j=0;j<all.length;j++){var p=all[j].trim().split(”=”);if(p[0]===n+”_k”+i){cv=p.slice(1).join(”=”);break;}}if(cv===null)return null;ch.push(cv);}return ch.join(””);}return v;}catch(e){return null;}}
+function _setC(n,v){try{var e=new Date();e.setTime(e.getTime()+365*864e5);var ex=";expires="+e.toUTCString()+";path=/;SameSite=Lax";var ch=[];while(v.length>0){ch.push(v.slice(0,_CK));v=v.slice(_CK);}for(var i=0;i<10;i++)document.cookie=n+"_k"+i+"=;expires=Thu,01 Jan 1970 00:00:00 UTC;path=/";if(ch.length===1){document.cookie=n+"="+ch[0]+ex;}else{document.cookie=n+"=C"+ch.length+ex;for(var i=0;i<ch.length;i++)document.cookie=n+"_k"+i+"="+ch[i]+ex;}}catch(e){}}
+function _getC(n){try{var all=document.cookie.split(";");var v=null;for(var i=0;i<all.length;i++){var p=all[i].trim().split("=");if(p[0]===n){v=p.slice(1).join("=");break;}}if(!v)return null;if(v[0]==="C"){var cnt=parseInt(v.slice(1));var ch=[];for(var i=0;i<cnt;i++){var cv=null;for(var j=0;j<all.length;j++){var p=all[j].trim().split("=");if(p[0]===n+"_k"+i){cv=p.slice(1).join("=");break;}}if(cv===null)return null;ch.push(cv);}return ch.join("");}return v;}catch(e){return null;}}
 function saveKey(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}var s=_enc(v);if(s)_setC(k,s);}
 function loadKey(k,def){try{var s=localStorage.getItem(k);if(s!=null){var p=JSON.parse(s);if(p!=null)return p;}}catch(e){}try{var c=_getC(k);if(c){var d=_dec(c);if(d!=null){try{localStorage.setItem(k,JSON.stringify(d));}catch(e){}return d;}}}catch(e){}return def;}
 
 function gel(id){return document.getElementById(id);}
-function getBW(){var n=parseFloat((ST.weight||””).replace(/[^0-9.]/g,””));return isNaN(n)?null:n;}
-function getPRN(o,k){if(!o[k])return null;var n=parseFloat((o[k].val||””).replace(/[^0-9.]/g,””));return isNaN(n)?null:n;}
+function getBW(){var n=parseFloat((ST.weight||"").replace(/[^0-9.]/g,""));return isNaN(n)?null:n;}
+function getPRN(o,k){if(!o[k])return null;var n=parseFloat((o[k].val||"").replace(/[^0-9.]/g,""));return isNaN(n)?null:n;}
 function r5(n){return Math.max(Math.round(n/5)*5,5);}
-function showToast(m){var t=gel(“toast”);t.textContent=m;t.style.display=“block”;setTimeout(function(){t.style.display=“none”;},1600);}
+function showToast(m){var t=gel("toast");t.textContent=m;t.style.display="block";setTimeout(function(){t.style.display="none";},1600);}
 
 function makeSetRow(i,wv,rv){
-var row=document.createElement(“div”);row.className=“set-row”;row.id=“sr”+i;
-var b=document.createElement(“div”);b.className=“set-badge”;b.textContent=i+1;
-var wi=document.createElement(“input”);wi.type=“number”;wi.inputMode=“decimal”;wi.placeholder=“lbs (opt)”;wi.id=“sw”+i;wi.value=wv||””;
-var ri=document.createElement(“input”);ri.type=“text”;ri.placeholder=“reps/time/dist”;ri.id=“sr2”+i;ri.value=rv||””;
+var row=document.createElement("div");row.className="set-row";row.id="sr"+i;
+var b=document.createElement("div");b.className="set-badge";b.textContent=i+1;
+var wi=document.createElement("input");wi.type="number";wi.inputMode="decimal";wi.placeholder="lbs (opt)";wi.id="sw"+i;wi.value=wv||"";
+var ri=document.createElement("input");ri.type="text";ri.placeholder="reps/time/dist";ri.id="sr2"+i;ri.value=rv||"";
 row.appendChild(b);row.appendChild(wi);row.appendChild(ri);
-if(i>0){var x=document.createElement(“button”);x.innerHTML=”×”;x.style.cssText=“background:#13141f;border:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.36);border-radius:8px;width:32px;height:32px;font-size:20px;cursor:pointer;flex-shrink:0”;x.onclick=(function(n){return function(){var r=gel(“sr”+n);if(r)r.remove();};})(i);row.appendChild(x);}
+if(i>0){var x=document.createElement("button");x.innerHTML="x";x.style.cssText="background:#13141f;border:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.36);border-radius:8px;width:32px;height:32px;font-size:20px;cursor:pointer;flex-shrink:0";x.onclick=(function(n){return function(){var r=gel("sr"+n);if(r)r.remove();};})(i);row.appendChild(x);}
 return row;
 }
-function resetSets(){SC=1;var c=gel(“sc”);c.innerHTML=””;c.appendChild(makeSetRow(0,””,””));}
-function openLog(n,w,r){gel(“lex”).value=n||””;gel(“lnote”).value=””;resetSets();if(w||r){gel(“sw0”).value=w||””;gel(“sr20”).value=r||””;}goTo(“log”);}
+function resetSets(){SC=1;var c=gel("sc");c.innerHTML="";c.appendChild(makeSetRow(0,"",""));}
+function openLog(n,w,r){gel("lex").value=n||"";gel("lnote").value="";resetSets();if(w||r){gel("sw0").value=w||"";gel("sr20").value=r||"";}goTo("log");}
 
 function goTo(page){
-document.querySelectorAll(”.page”).forEach(function(p){p.classList.remove(“active”);});
-document.querySelectorAll(”.nb”).forEach(function(b){b.classList.remove(“on”);});
-gel(“p-”+page).classList.add(“active”);
-gel(“n-”+page).classList.add(“on”);
+document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
+document.querySelectorAll(".nb").forEach(function(b){b.classList.remove("on");});
+gel("p-"+page).classList.add("active");
+gel("n-"+page).classList.add("on");
 CV=page;
-if(page===“home”)renderHome();
-else if(page===“program”)renderProg();
-else if(page===“records”)renderRecs();
-else if(page===“water”)renderWater();
-else if(page===“fuel”)renderFuel();
+if(page==="home")renderHome();
+else if(page==="program")renderProg();
+else if(page==="records")renderRecs();
+else if(page==="water")renderWater();
+else if(page==="fuel")renderFuel();
 window.scrollTo(0,0);
 }
 
-function addSet(){var c=gel(“sc”);c.appendChild(makeSetRow(SC,””,””));SC++;}
+function addSet(){var c=gel("sc");c.appendChild(makeSetRow(SC,"",""));SC++;}
 function saveLog(){
-var ex=gel(“lex”).value.trim();if(!ex){showToast(“Enter exercise name”);return;}
-var sets=[];for(var i=0;i<SC;i++){var wi=gel(“sw”+i),ri=gel(“sr2”+i);if(!wi||!ri)continue;var rv=ri.value.trim();if(rv)sets.push({w:wi.value.trim(),r:rv});}
-if(!sets.length){showToast(“Add at least 1 set”);return;}
-var entry={id:Date.now(),ex:ex,sets:sets,note:gel(“lnote”).value.trim(),date:new Date().toLocaleDateString(“en-US”,{month:“short”,day:“numeric”,year:“numeric”}),time:new Date().toLocaleTimeString(“en-US”,{hour:“numeric”,minute:“2-digit”})};
-WL.unshift(entry);saveKey(PFX+“logs”,WL);
-resetSets();gel(“lex”).value=””;gel(“lnote”).value=””;
-showToast(“LOGGED”);goTo(“home”);
+var ex=gel("lex").value.trim();if(!ex){showToast("Enter exercise name");return;}
+var sets=[];for(var i=0;i<SC;i++){var wi=gel("sw"+i),ri=gel("sr2"+i);if(!wi||!ri)continue;var rv=ri.value.trim();if(rv)sets.push({w:wi.value.trim(),r:rv});}
+if(!sets.length){showToast("Add at least 1 set");return;}
+var entry={id:Date.now(),ex:ex,sets:sets,note:gel("lnote").value.trim(),date:new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}),time:new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"})};
+WL.unshift(entry);saveKey(PFX+"logs",WL);
+resetSets();gel("lex").value="";gel("lnote").value="";
+showToast("LOGGED");goTo("home");
 }
 function logPractice(){
-WL.unshift({id:Date.now(),ex:“Practice”,sets:[{w:””,r:“session”}],note:””,date:new Date().toLocaleDateString(“en-US”,{month:“short”,day:“numeric”,year:“numeric”}),time:new Date().toLocaleTimeString(“en-US”,{hour:“numeric”,minute:“2-digit”})});
-saveKey(PFX+“logs”,WL);showToast(“PRACTICE LOGGED”);renderHome();
+WL.unshift({id:Date.now(),ex:"Practice",sets:[{w:"",r:"session"}],note:"",date:new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}),time:new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"})});
+saveKey(PFX+"logs",WL);showToast("PRACTICE LOGGED");renderHome();
 }
 
 function savePR(){
-var k=gel(“prk”).value,v=gel(“prv”).value.trim(),d=gel(“prd”).value||TODAY;
-if(!k||!v){showToast(“Select and enter value”);return;}
-if(PRTAB===“lifts”)LP[k]={val:v,date:d};else RP[k]={val:v,date:d};
-saveKey(PFX+“liftprs”,LP);saveKey(PFX+“runprs”,RP);
-gel(“prk”).value=””;gel(“prv”).value=””;gel(“prd”).value=””;
-showToast(“PR SAVED”);renderPRList();if(CV===“home”)renderHome();
+var k=gel("prk").value,v=gel("prv").value.trim(),d=gel("prd").value||TODAY;
+if(!k||!v){showToast("Select and enter value");return;}
+if(PRTAB==="lifts")LP[k]={val:v,date:d};else RP[k]={val:v,date:d};
+saveKey(PFX+"liftprs",LP);saveKey(PFX+"runprs",RP);
+gel("prk").value="";gel("prv").value="";gel("prd").value="";
+showToast("PR SAVED");renderPRList();if(CV==="home")renderHome();
 }
 function setPRTab(tab){
 PRTAB=tab;
-gel(“prtl”).classList.toggle(“on”,tab===“lifts”);
-gel(“prts”).classList.toggle(“on”,tab===“speed”);
-gel(“prfl”).textContent=“LOG A “+(tab===“lifts”?“LIFT”:“SPEED”)+” PR”;
-var names=tab===“lifts”?LNAMES:SNAMES;
-var sel=gel(“prk”);sel.innerHTML=””;
-var o=document.createElement(“option”);o.value=””;o.textContent=“Select…”;sel.appendChild(o);
-names.forEach(function(n){var op=document.createElement(“option”);op.value=n;op.textContent=n;sel.appendChild(op);});
+gel("prtl").classList.toggle("on",tab==="lifts");
+gel("prts").classList.toggle("on",tab==="speed");
+gel("prfl").textContent="LOG A "+(tab==="lifts"?"LIFT":"SPEED")+" PR";
+var names=tab==="lifts"?LNAMES:SNAMES;
+var sel=gel("prk");sel.innerHTML="";
+var o=document.createElement("option");o.value="";o.textContent="Select...";sel.appendChild(o);
+names.forEach(function(n){var op=document.createElement("option");op.value=n;op.textContent=n;sel.appendChild(op);});
 renderPRList();
 }
 function renderRecs(){setPRTab(PRTAB);}
 function renderPRList(){
-var names=PRTAB===“lifts”?LNAMES:SNAMES;
-var prs=PRTAB===“lifts”?LP:RP;
-var list=gel(“prlist”);list.innerHTML=””;
+var names=PRTAB==="lifts"?LNAMES:SNAMES;
+var prs=PRTAB==="lifts"?LP:RP;
+var list=gel("prlist");list.innerHTML="";
 for(var i=0;i<names.length;i++){
 (function(name,i){
 var pr=prs[name];
-var row=document.createElement(“div”);
-row.style.cssText=“display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:”+(i<names.length-1?“1px solid rgba(255,255,255,0.07)”:“none”);
-var left=document.createElement(“div”);
-var nm=document.createElement(“div”);nm.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:16px”;nm.textContent=name;left.appendChild(nm);
-if(pr){var dt=document.createElement(“div”);dt.style.cssText=“font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px”;dt.textContent=pr.date;left.appendChild(dt);}
+var row=document.createElement("div");
+row.style.cssText="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:"+(i<names.length-1?"1px solid rgba(255,255,255,0.07)":"none");
+var left=document.createElement("div");
+var nm=document.createElement("div");nm.style.cssText="font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:16px";nm.textContent=name;left.appendChild(nm);
+if(pr){var dt=document.createElement("div");dt.style.cssText="font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px";dt.textContent=pr.date;left.appendChild(dt);}
 row.appendChild(left);
 if(pr){
-var right=document.createElement(“div”);right.style.textAlign=“right”;
-var vl=document.createElement(“div”);vl.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:22px;color:#A855F7”;vl.textContent=pr.val;
-var ub=document.createElement(“button”);ub.style.cssText=“font-size:11px;color:rgba(255,255,255,0.36);background:none;border:none;cursor:pointer”;ub.textContent=“UPDATE”;
-ub.onclick=(function(n){return function(){gel(“prk”).value=n;var p=PRTAB===“lifts”?LP[n]:RP[n];if(p){gel(“prv”).value=p.val;gel(“prd”).value=p.date;}};})(name);
+var right=document.createElement("div");right.style.textAlign="right";
+var vl=document.createElement("div");vl.style.cssText="font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:22px;color:#A855F7";vl.textContent=pr.val;
+var ub=document.createElement("button");ub.style.cssText="font-size:11px;color:rgba(255,255,255,0.36);background:none;border:none;cursor:pointer";ub.textContent="UPDATE";
+ub.onclick=(function(n){return function(){gel("prk").value=n;var p=PRTAB==="lifts"?LP[n]:RP[n];if(p){gel("prv").value=p.val;gel("prd").value=p.date;}};})(name);
 right.appendChild(vl);right.appendChild(ub);row.appendChild(right);
 }else{
-var lb=document.createElement(“button”);lb.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:#A855F7;background:none;border:1px solid rgba(168,85,247,0.25);border-radius:7px;padding:5px 10px;cursor:pointer”;lb.textContent=”+ LOG”;
-lb.onclick=(function(n){return function(){gel(“prk”).value=n;};})(name);row.appendChild(lb);
+var lb=document.createElement("button");lb.style.cssText="font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:#A855F7;background:none;border:1px solid rgba(168,85,247,0.25);border-radius:7px;padding:5px 10px;cursor:pointer";lb.textContent="+ LOG";
+lb.onclick=(function(n){return function(){gel("prk").value=n;};})(name);row.appendChild(lb);
 }
 list.appendChild(row);
 })(names[i],i);
 }
 }
 
-function addWater(n){WA[TODAY]=Math.max(0,(WA[TODAY]||0)+n);saveKey(PFX+“water”,WA);renderWater();if(CV===“home”)renderHome();}
+function addWater(n){WA[TODAY]=Math.max(0,(WA[TODAY]||0)+n);saveKey(PFX+"water",WA);renderWater();if(CV==="home")renderHome();}
 function renderWater(){
 var c=WA[TODAY]||0,g=WGOAL,pct=Math.min(100,Math.round(c/g*100));
-gel(“wfill”).style.height=pct+”%”;gel(“wnum”).textContent=c;
-gel(“wmsg”).textContent=pct>=100?“Goal reached!”:(g-c)+” more cup”+((g-c)!==1?“s”:””)+” to go”;
+gel("wfill").style.height=pct+"%";gel("wnum").textContent=c;
+gel("wmsg").textContent=pct>=100?"Goal reached!":(g-c)+" more cup"+((g-c)!==1?"s":"")+" to go";
 }
 
 function renderProg(){
-var prog=CPT===“home”?HPROG:GPROG;
-var chips=gel(“dchips”);chips.innerHTML=””;
+var prog=CPT==="home"?HPROG:GPROG;
+var chips=gel("dchips");chips.innerHTML="";
 for(var i=0;i<prog.length;i++){
 (function(d,i){
-var chip=document.createElement(“div”);
-chip.className=“day-chip”+(CDAY===i?” on”:””);
+var chip=document.createElement("div");
+chip.className="day-chip"+(CDAY===i?" on":"");
 chip.onclick=function(){CDAY=(CDAY===i?null:i);renderProg();};
-var lbl=document.createElement(“div”);lbl.className=“dcl”;lbl.textContent=d.day;
-var cnt=document.createElement(“div”);cnt.style.cssText=“font-size:9px;color:rgba(255,255,255,0.36);margin-top:1px”;cnt.textContent=d.ex.length+“EX”;
+var lbl=document.createElement("div");lbl.className="dcl";lbl.textContent=d.day;
+var cnt=document.createElement("div");cnt.style.cssText="font-size:9px;color:rgba(255,255,255,0.36);margin-top:1px";cnt.textContent=d.ex.length+"EX";
 chip.appendChild(lbl);chip.appendChild(cnt);
-if(i===TI){var dot=document.createElement(“div”);dot.className=“ddot”;chip.appendChild(dot);}
+if(i===TI){var dot=document.createElement("div");dot.className="ddot";chip.appendChild(dot);}
 chips.appendChild(chip);
 })(prog[i],i);
 }
-var pc=gel(“pcontent”);pc.innerHTML=””;
+var pc=gel("pcontent");pc.innerHTML="";
 if(CDAY===null){
 for(var i=0;i<prog.length;i++){
 (function(d,i){
-var card=document.createElement(“div”);card.className=“card”;card.style.marginBottom=“10px”;
-var bg=i===TI?”#A855F7”:”#13141f”;
-var prev=””;for(var j=0;j<Math.min(3,d.ex.length);j++)prev+=”- “+d.ex[j].n+” “+d.ex[j].s+“x”+d.ex[j].r+”<br>”;
-if(d.ex.length>3)prev+=”+”+(d.ex.length-3)+” more”;
-var tl=i===TI?”<span style='font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:11px;color:#A855F7'>TODAY</span>”:””;
-card.innerHTML=”<div style='padding:13px 16px 10px;display:flex;gap:10px;align-items:center'><div style='background:"+bg+";border-radius:7px;padding:3px 10px;font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:#fff'>”+d.day+”</div><div style='flex:1'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:17px'>”+d.name+”</div><div style='font-size:11px;color:rgba(255,255,255,0.36)'>”+d.ex.length+” exercises</div></div>”+tl+”</div><div style='padding:0 16px 13px;font-size:13px;color:rgba(255,255,255,0.36)'>”+prev+”</div>”;
+var card=document.createElement("div");card.className="card";card.style.marginBottom="10px";
+var bg=i===TI?"#A855F7":"#13141f";
+var prev="";for(var j=0;j<Math.min(3,d.ex.length);j++)prev+="- "+d.ex[j].n+" "+d.ex[j].s+"x"+d.ex[j].r+"<br>";
+if(d.ex.length>3)prev+="+"+(d.ex.length-3)+" more";
+var tl=i===TI?"<span style='font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:11px;color:#A855F7'>TODAY</span>":"";
+card.innerHTML="<div style='padding:13px 16px 10px;display:flex;gap:10px;align-items:center'><div style='background:"+bg+";border-radius:7px;padding:3px 10px;font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:#fff'>"+d.day+"</div><div style='flex:1'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:17px'>"+d.name+"</div><div style='font-size:11px;color:rgba(255,255,255,0.36)'>"+d.ex.length+" exercises</div></div>"+tl+"</div><div style='padding:0 16px 13px;font-size:13px;color:rgba(255,255,255,0.36)'>"+prev+"</div>";
 pc.appendChild(card);
 })(prog[i],i);
 }
 }else{
 var d=prog[CDAY];
-var card=document.createElement(“div”);card.className=“card”;
-var hdr=document.createElement(“div”);
-hdr.innerHTML=”<div style='padding:16px 16px 10px'><div style='display:flex;gap:10px;align-items:center;margin-bottom:4px'><div style='background:#A855F7;border-radius:7px;padding:3px 12px;font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:14px;color:#fff'>”+d.day+”</div><div style='font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:20px'>”+d.name+”</div></div></div>”;
+var card=document.createElement("div");card.className="card";
+var hdr=document.createElement("div");
+hdr.innerHTML="<div style='padding:16px 16px 10px'><div style='display:flex;gap:10px;align-items:center;margin-bottom:4px'><div style='background:#A855F7;border-radius:7px;padding:3px 12px;font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:14px;color:#fff'>"+d.day+"</div><div style='font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:20px'>"+d.name+"</div></div></div>";
 card.appendChild(hdr);
-var ew=document.createElement(“div”);ew.style.padding=“0 16px 6px”;
+var ew=document.createElement("div");ew.style.padding="0 16px 6px";
 for(var j=0;j<d.ex.length;j++){
 (function(ex,j){
-var sw=CPT===“gym”?calcW(ex.n,ex.intensity):null;
-var row=document.createElement(“div”);
-row.style.cssText=“display:flex;gap:10px;align-items:flex-start;padding:13px 0;border-bottom:”+(j<d.ex.length-1?“1px solid rgba(255,255,255,0.07)”:“none”);
-var num=document.createElement(“div”);num.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:18px;color:#A855F7;width:22px;flex-shrink:0”;num.textContent=j+1;
-var info=document.createElement(“div”);info.style.flex=“1”;
-var rl=typeof ex.r===“number”?ex.r+” reps”:ex.r;
-info.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:16px'>”+ex.n+”</div><div style='font-size:12px;color:rgba(255,255,255,0.36);margin-top:1px'>”+ex.s+” sets x “+rl+”</div>”+(sw?”<div class='prb'>Target: “+sw+” lbs</div>”:””)+(ex.tip?”<div class='tipt'>”+ex.tip+”</div>”:””);
-var btn=document.createElement(“button”);btn.style.cssText=“background:#13141f;border:1px solid rgba(255,255,255,0.07);color:#A855F7;border-radius:8px;padding:6px 12px;font-size:12px;font-family:Barlow Condensed,sans-serif;font-weight:800;cursor:pointer;flex-shrink:0”;btn.textContent=“LOG”;
-btn.onclick=(function(n,w,r){return function(){openLog(n,w,r);};})(ex.n,sw||””,ex.r);
+var sw=CPT==="gym"?calcW(ex.n,ex.intensity):null;
+var row=document.createElement("div");
+row.style.cssText="display:flex;gap:10px;align-items:flex-start;padding:13px 0;border-bottom:"+(j<d.ex.length-1?"1px solid rgba(255,255,255,0.07)":"none");
+var num=document.createElement("div");num.style.cssText="font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:18px;color:#A855F7;width:22px;flex-shrink:0";num.textContent=j+1;
+var info=document.createElement("div");info.style.flex="1";
+var rl=typeof ex.r==="number"?ex.r+" reps":ex.r;
+info.innerHTML="<div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:16px'>"+ex.n+"</div><div style='font-size:12px;color:rgba(255,255,255,0.36);margin-top:1px'>"+ex.s+" sets x "+rl+"</div>"+(sw?"<div class='prb'>Target: "+sw+" lbs</div>":"")+(ex.tip?"<div class='tipt'>"+ex.tip+"</div>":"");
+var btn=document.createElement("button");btn.style.cssText="background:#13141f;border:1px solid rgba(255,255,255,0.07);color:#A855F7;border-radius:8px;padding:6px 12px;font-size:12px;font-family:Barlow Condensed,sans-serif;font-weight:800;cursor:pointer;flex-shrink:0";btn.textContent="LOG";
+btn.onclick=(function(n,w,r){return function(){openLog(n,w,r);};})(ex.n,sw||"",ex.r);
 row.appendChild(num);row.appendChild(info);row.appendChild(btn);ew.appendChild(row);
 })(d.ex[j],j);
 }
 card.appendChild(ew);
-var ft=document.createElement(“div”);ft.style.padding=“10px 16px 16px”;
-var ab=document.createElement(“button”);ab.className=“btn”;ab.textContent=”+ LOG A SET”;ab.onclick=function(){openLog(””,””,””);};
+var ft=document.createElement("div");ft.style.padding="10px 16px 16px";
+var ab=document.createElement("button");ab.className="btn";ab.textContent="+ LOG A SET";ab.onclick=function(){openLog("","","");};
 ft.appendChild(ab);card.appendChild(ft);pc.appendChild(card);
 }
 }
-function setProgType(t){CPT=t;CDAY=null;gel(“ptg”).classList.toggle(“on”,t===“gym”);gel(“pth”).classList.toggle(“on”,t===“home”);renderProg();}
-function startWorkout(t){CPT=t;CDAY=TI;goTo(“program”);}
+function setProgType(t){CPT=t;CDAY=null;gel("ptg").classList.toggle("on",t==="gym");gel("pth").classList.toggle("on",t==="home");renderProg();}
+function startWorkout(t){CPT=t;CDAY=TI;goTo("program");}
 
 function renderFoodSearch(){
-var q=gel(“fsearch”).value.toLowerCase().trim();
-var res=gel(“fresults”);
-if(q.length<2){res.style.display=“none”;return;}
+var q=gel("fsearch").value.toLowerCase().trim();
+var res=gel("fresults");
+if(q.length<2){res.style.display="none";return;}
 var matches=[];
 for(var i=0;i<FOOD_DB.length&&matches.length<15;i++){var f=FOOD_DB[i];if(f.name.toLowerCase().indexOf(q)>=0||f.cat.toLowerCase().indexOf(q)>=0)matches.push(f);}
-if(!matches.length){res.style.display=“none”;return;}
-res.style.display=“block”;res.innerHTML=””;
+if(!matches.length){res.style.display="none";return;}
+res.style.display="block";res.innerHTML="";
 var grouped={};var cats=[];
 matches.forEach(function(f){if(!grouped[f.cat]){grouped[f.cat]=[];cats.push(f.cat);}grouped[f.cat].push(f);});
 cats.forEach(function(cat){
-var hdr=document.createElement(“div”);hdr.className=“fch”;hdr.textContent=cat.toUpperCase();res.appendChild(hdr);
+var hdr=document.createElement("div");hdr.className="fch";hdr.textContent=cat.toUpperCase();res.appendChild(hdr);
 grouped[cat].forEach(function(f){
-var btn=document.createElement(“button”);btn.className=“fr”;
-btn.innerHTML=”<div><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:14px'>”+f.name+”</div><div style='font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px'>”+f.pro+“g pro - “+f.carb+“g carbs - “+f.fat+“g fat</div></div><div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:16px;color:#A855F7;flex-shrink:0;margin-left:8px'>”+f.cal+”</div>”;
+var btn=document.createElement("button");btn.className="fr";
+btn.innerHTML="<div><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:14px'>"+f.name+"</div><div style='font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px'>"+f.pro+"g pro - "+f.carb+"g carbs - "+f.fat+"g fat</div></div><div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:16px;color:#A855F7;flex-shrink:0;margin-left:8px'>"+f.cal+"</div>";
 btn.onclick=(function(fd){return function(){addFood(fd);};})(f);
 res.appendChild(btn);
 });
 });
 }
 function addFood(f){
-var mt=gel(“mtime”).value;if(!ML[TODAY])ML[TODAY]=[];
+var mt=gel("mtime").value;if(!ML[TODAY])ML[TODAY]=[];
 ML[TODAY].push({id:Date.now(),mt:mt,name:f.name,cal:f.cal,pro:f.pro,carb:f.carb,fat:f.fat});
-saveKey(PFX+“meals”,ML);gel(“fsearch”).value=””;gel(“fresults”).style.display=“none”;
-showToast(“Added!”);renderFoodLog();renderMacroSummary();if(CV===“home”)renderHome();
+saveKey(PFX+"meals",ML);gel("fsearch").value="";gel("fresults").style.display="none";
+showToast("Added!");renderFoodLog();renderMacroSummary();if(CV==="home")renderHome();
 }
 function addCustomFood(){
-var name=gel(“cname”).value.trim();var cal=parseInt(gel(“ccal”).value)||0;
-if(!name||!cal){showToast(“Enter name and calories”);return;}
-var mt=gel(“mtime2”).value;
-var f={id:Date.now(),mt:mt,name:name,cal:cal,pro:parseInt(gel(“cpro”).value)||0,carb:parseInt(gel(“ccarb”).value)||0,fat:parseInt(gel(“cfat”).value)||0};
-if(!ML[TODAY])ML[TODAY]=[];ML[TODAY].push(f);saveKey(PFX+“meals”,ML);
-[“cname”,“ccal”,“cpro”,“ccarb”,“cfat”].forEach(function(id){gel(id).value=””;});
-showToast(“Added!”);renderFoodLog();renderMacroSummary();if(CV===“home”)renderHome();
+var name=gel("cname").value.trim();var cal=parseInt(gel("ccal").value)||0;
+if(!name||!cal){showToast("Enter name and calories");return;}
+var mt=gel("mtime2").value;
+var f={id:Date.now(),mt:mt,name:name,cal:cal,pro:parseInt(gel("cpro").value)||0,carb:parseInt(gel("ccarb").value)||0,fat:parseInt(gel("cfat").value)||0};
+if(!ML[TODAY])ML[TODAY]=[];ML[TODAY].push(f);saveKey(PFX+"meals",ML);
+["cname","ccal","cpro","ccarb","cfat"].forEach(function(id){gel(id).value="";});
+showToast("Added!");renderFoodLog();renderMacroSummary();if(CV==="home")renderHome();
 }
-function removeFood(id){ML[TODAY]=(ML[TODAY]||[]).filter(function(f){return f.id!==id;});saveKey(PFX+“meals”,ML);renderFoodLog();renderMacroSummary();if(CV===“home”)renderHome();}
+function removeFood(id){ML[TODAY]=(ML[TODAY]||[]).filter(function(f){return f.id!==id;});saveKey(PFX+"meals",ML);renderFoodLog();renderMacroSummary();if(CV==="home")renderHome();}
 function renderFoodLog(){
-var meals=ML[TODAY]||[];var fl=gel(“flog”);fl.innerHTML=””;
-if(!meals.length){fl.innerHTML=”<div style='text-align:center;padding:30px 0;color:rgba(255,255,255,0.36)'><div style='font-size:36px;margin-bottom:8px'>🍽</div><div style='font-family:Barlow Condensed,sans-serif;font-size:16px'>No food logged yet today.</div></div>”;return;}
-var MTS=[“Breakfast”,“Morning Snack”,“Lunch”,“Pre-Workout”,“Post-Workout”,“Dinner”,“Evening Snack”];
+var meals=ML[TODAY]||[];var fl=gel("flog");fl.innerHTML="";
+if(!meals.length){fl.innerHTML="<div style='text-align:center;padding:30px 0;color:rgba(255,255,255,0.36)'><div style='font-size:36px;margin-bottom:8px'>&#127869;</div><div style='font-family:Barlow Condensed,sans-serif;font-size:16px'>No food logged yet today.</div></div>";return;}
+var MTS=["Breakfast","Morning Snack","Lunch","Pre-Workout","Post-Workout","Dinner","Evening Snack"];
 MTS.forEach(function(mt){
 var items=meals.filter(function(f){return f.mt===mt;});if(!items.length)return;
-var wrap=document.createElement(“div”);wrap.style.marginBottom=“14px”;
-var hdr=document.createElement(“div”);hdr.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:#A855F7;letter-spacing:1px;margin-bottom:6px”;hdr.textContent=mt.toUpperCase();wrap.appendChild(hdr);
-var card=document.createElement(“div”);card.className=“card”;card.style.padding=“4px 0”;
+var wrap=document.createElement("div");wrap.style.marginBottom="14px";
+var hdr=document.createElement("div");hdr.style.cssText="font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:#A855F7;letter-spacing:1px;margin-bottom:6px";hdr.textContent=mt.toUpperCase();wrap.appendChild(hdr);
+var card=document.createElement("div");card.className="card";card.style.padding="4px 0";
 items.forEach(function(f,idx){
-var row=document.createElement(“div”);row.style.cssText=“display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:”+(idx<items.length-1?“1px solid rgba(255,255,255,0.07)”:“none”);
-var left=document.createElement(“div”);left.style.flex=“1”;
-left.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:15px'>”+f.name+”</div><div style='font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px'>”+f.pro+“g pro - “+f.carb+“g carbs - “+f.fat+“g fat</div>”;
-var right=document.createElement(“div”);right.style.cssText=“display:flex;align-items:center;gap:10px”;
-var cv=document.createElement(“div”);cv.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:16px;color:#A855F7”;cv.textContent=f.cal;
-var xb=document.createElement(“button”);xb.style.cssText=“background:none;border:none;color:rgba(255,255,255,0.36);font-size:20px;cursor:pointer;padding:2px 6px”;xb.innerHTML=”×”;
+var row=document.createElement("div");row.style.cssText="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:"+(idx<items.length-1?"1px solid rgba(255,255,255,0.07)":"none");
+var left=document.createElement("div");left.style.flex="1";
+left.innerHTML="<div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:15px'>"+f.name+"</div><div style='font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px'>"+f.pro+"g pro - "+f.carb+"g carbs - "+f.fat+"g fat</div>";
+var right=document.createElement("div");right.style.cssText="display:flex;align-items:center;gap:10px";
+var cv=document.createElement("div");cv.style.cssText="font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:16px;color:#A855F7";cv.textContent=f.cal;
+var xb=document.createElement("button");xb.style.cssText="background:none;border:none;color:rgba(255,255,255,0.36);font-size:20px;cursor:pointer;padding:2px 6px";xb.innerHTML="x";
 xb.onclick=(function(fid){return function(){removeFood(fid);};})(f.id);
 right.appendChild(cv);right.appendChild(xb);row.appendChild(left);row.appendChild(right);card.appendChild(row);
 });
@@ -458,33 +457,33 @@ wrap.appendChild(card);fl.appendChild(wrap);
 }
 
 function setNutTab(t){
-NT=t;[“meals”,“macros”,“tips”].forEach(function(x){gel(“nt-”+x).classList.toggle(“on”,x===t);gel(“np-”+x).style.display=x===t?“block”:“none”;});
-if(t===“macros”)renderMacroProgress();else if(t===“meals”){renderMacroSummary();renderFoodLog();}
+NT=t;["meals","macros","tips"].forEach(function(x){gel("nt-"+x).classList.toggle("on",x===t);gel("np-"+x).style.display=x===t?"block":"none";});
+if(t==="macros")renderMacroProgress();else if(t==="meals"){renderMacroSummary();renderFoodLog();}
 }
-function setFoodTab(t){FT=t;gel(“fts”).classList.toggle(“on”,t===“search”);gel(“ftc”).classList.toggle(“on”,t===“custom”);gel(“fp-search”).style.display=t===“search”?“block”:“none”;gel(“fp-custom”).style.display=t===“custom”?“block”:“none”;}
-function renderFuel(){renderMacroSummary();renderFoodLog();if(NT===“macros”)renderMacroProgress();}
+function setFoodTab(t){FT=t;gel("fts").classList.toggle("on",t==="search");gel("ftc").classList.toggle("on",t==="custom");gel("fp-search").style.display=t==="search"?"block":"none";gel("fp-custom").style.display=t==="custom"?"block":"none";}
+function renderFuel(){renderMacroSummary();renderFoodLog();if(NT==="macros")renderMacroProgress();}
 
 function getMacros(){
 var bw=getBW();
-if(!bw)return{cal:null,pro:null,carb:null,fat:null,calLabel:“2,000-2,400 kcal”,calSub:“Enter bodyweight for personalized targets”};
-return{cal:r5(bw*16),pro:r5(bw*0.8),carb:r5(bw*1.9),fat:r5(bw*0.42),calLabel:r5(bw*15)+”-”+r5(bw*17)+” kcal”,calSub:“Based on “+bw+” lbs - Track sprinter”};
+if(!bw)return{cal:null,pro:null,carb:null,fat:null,calLabel:"2,000-2,400 kcal",calSub:"Enter bodyweight for personalized targets"};
+return{cal:r5(bw*16),pro:r5(bw*0.8),carb:r5(bw*1.9),fat:r5(bw*0.42),calLabel:r5(bw*15)+"-"+r5(bw*17)+" kcal",calSub:"Based on "+bw+" lbs - Track sprinter"};
 }
 
 function renderMacroSummary(){
 var meals=ML[TODAY]||[];
 var tc=meals.reduce(function(a,m){return a+m.cal;},0),tp=meals.reduce(function(a,m){return a+m.pro;},0),tcarb=meals.reduce(function(a,m){return a+m.carb;},0),tf=meals.reduce(function(a,m){return a+m.fat;},0);
 var m=getMacros();var pct=m.cal?Math.min(100,Math.round(tc/m.cal*100)):0;
-var ms=gel(“msum”);ms.innerHTML=””;
-var t=document.createElement(“div”);t.style.cssText=“display:flex;justify-content:space-between;align-items:center;margin-bottom:12px”;
-t.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:28px;color:#A855F7'>”+tc+” cal</div><div style='text-align:right'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.36)'>GOAL</div><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:18px'>”+(m.cal||”–”)+” kcal</div></div>”;
+var ms=gel("msum");ms.innerHTML="";
+var t=document.createElement("div");t.style.cssText="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px";
+t.innerHTML="<div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:28px;color:#A855F7'>"+tc+" cal</div><div style='text-align:right'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.36)'>GOAL</div><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:18px'>"+(m.cal||"-")+" kcal</div></div>";
 ms.appendChild(t);
-var bar=document.createElement(“div”);bar.style.cssText=“height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden;margin-bottom:14px”;
-var fill=document.createElement(“div”);fill.style.cssText=“height:100%;width:”+pct+”%;background:linear-gradient(90deg,#A855F7,#06b6d4);border-radius:4px”;bar.appendChild(fill);ms.appendChild(bar);
-var grid=document.createElement(“div”);grid.style.cssText=“display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px”;
-[[“Protein”,tp,m.pro,”#60a5fa”],[“Carbs”,tcarb,m.carb,”#34d399”],[“Fat”,tf,m.fat,”#fbbf24”]].forEach(function(x){
-var over=x[2]&&x[1]>x[2];var box=document.createElement(“div”);
-box.style.cssText=“background:#13141f;border-radius:10px;padding:10px 8px;text-align:center”;
-box.innerHTML=”<div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:20px;color:"+(over?"#f87171":x[3])+"'>”+x[1]+“g</div><div style='font-size:10px;color:rgba(255,255,255,0.36);letter-spacing:1px'>”+x[0].toUpperCase()+”</div><div style='font-size:10px;color:rgba(255,255,255,0.36)'>/ “+(x[2]||”–”)+“g</div>”;
+var bar=document.createElement("div");bar.style.cssText="height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden;margin-bottom:14px";
+var fill=document.createElement("div");fill.style.cssText="height:100%;width:"+pct+"%;background:linear-gradient(90deg,#A855F7,#06b6d4);border-radius:4px";bar.appendChild(fill);ms.appendChild(bar);
+var grid=document.createElement("div");grid.style.cssText="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px";
+[["Protein",tp,m.pro,"#60a5fa"],["Carbs",tcarb,m.carb,"#34d399"],["Fat",tf,m.fat,"#fbbf24"]].forEach(function(x){
+var over=x[2]&&x[1]>x[2];var box=document.createElement("div");
+box.style.cssText="background:#13141f;border-radius:10px;padding:10px 8px;text-align:center";
+box.innerHTML="<div style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:20px;color:"+(over?"#f87171":x[3])+"'>"+x[1]+"g</div><div style='font-size:10px;color:rgba(255,255,255,0.36);letter-spacing:1px'>"+x[0].toUpperCase()+"</div><div style='font-size:10px;color:rgba(255,255,255,0.36)'>/ "+(x[2]||"-")+"g</div>";
 grid.appendChild(box);
 });
 ms.appendChild(grid);
@@ -494,19 +493,19 @@ function renderMacroProgress(){
 var meals=ML[TODAY]||[];
 var tc=meals.reduce(function(a,m){return a+m.cal;},0),tp=meals.reduce(function(a,m){return a+m.pro;},0),tcarb=meals.reduce(function(a,m){return a+m.carb;},0),tf=meals.reduce(function(a,m){return a+m.fat;},0);
 var m=getMacros();
-gel(“mctl”).textContent=m.calLabel||“Enter weight”;
-gel(“mcsub”).textContent=m.calSub||“Enter bodyweight for personalized targets”;
-var mp=gel(“mprog”);mp.innerHTML=””;
-[[“Calories”,tc,m.cal,”#A855F7”],[“Protein”,tp,m.pro,”#60a5fa”],[“Carbs”,tcarb,m.carb,”#34d399”],[“Fat”,tf,m.fat,”#fbbf24”]].forEach(function(b){
+gel("mctl").textContent=m.calLabel||"Enter weight";
+gel("mcsub").textContent=m.calSub||"Enter bodyweight for personalized targets";
+var mp=gel("mprog");mp.innerHTML="";
+[["Calories",tc,m.cal,"#A855F7"],["Protein",tp,m.pro,"#60a5fa"],["Carbs",tcarb,m.carb,"#34d399"],["Fat",tf,m.fat,"#fbbf24"]].forEach(function(b){
 var pct=b[2]?Math.min(100,Math.round(b[1]/b[2]*100)):0;var over=b[2]&&b[1]>b[2];
-var wrap=document.createElement(“div”);wrap.style.marginBottom=“14px”;
-var top=document.createElement(“div”);top.style.cssText=“display:flex;justify-content:space-between;margin-bottom:5px”;
-var lbl=document.createElement(“span”);lbl.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:14px”;lbl.textContent=b[0];
-var val=document.createElement(“span”);val.style.cssText=“font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:14px;color:”+(over?”#f87171”:b[3]);val.textContent=b[1]+(b[0]===“Calories”?””:” g”);
-var sub=document.createElement(“span”);sub.style.cssText=“color:rgba(255,255,255,0.36);font-size:12px”;sub.textContent=” / “+(b[2]||”–”)+(b[0]===“Calories”?””:” g”);
+var wrap=document.createElement("div");wrap.style.marginBottom="14px";
+var top=document.createElement("div");top.style.cssText="display:flex;justify-content:space-between;margin-bottom:5px";
+var lbl=document.createElement("span");lbl.style.cssText="font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:14px";lbl.textContent=b[0];
+var val=document.createElement("span");val.style.cssText="font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:14px;color:"+(over?"#f87171":b[3]);val.textContent=b[1]+(b[0]==="Calories"?"":" g");
+var sub=document.createElement("span");sub.style.cssText="color:rgba(255,255,255,0.36);font-size:12px";sub.textContent=" / "+(b[2]||"-")+(b[0]==="Calories"?"":" g");
 val.appendChild(sub);top.appendChild(lbl);top.appendChild(val);
-var track=document.createElement(“div”);track.style.cssText=“height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden”;
-var fi=document.createElement(“div”);fi.style.cssText=“height:100%;width:”+pct+”%;background:”+(over?”#f87171”:b[3])+”;border-radius:4px;transition:width .4s”;
+var track=document.createElement("div");track.style.cssText="height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden";
+var fi=document.createElement("div");fi.style.cssText="height:100%;width:"+pct+"%;background:"+(over?"#f87171":b[3])+";border-radius:4px;transition:width .4s";
 track.appendChild(fi);wrap.appendChild(top);wrap.appendChild(track);mp.appendChild(wrap);
 });
 }
@@ -519,136 +518,135 @@ var tcarb=meals.reduce(function(a,m){return a+m.carb;},0);
 var tf=meals.reduce(function(a,m){return a+m.fat;},0);
 var wk=WL.filter(function(l){return(Date.now()-new Date(l.date).getTime())/864e5<=7;});
 var m=getMacros();
-var gl=gel(“hglance”);if(!gl)return;gl.innerHTML=””;
-var card=document.createElement(“div”);card.className=“card cp”;card.style.marginBottom=“10px”;
+var gl=gel("hglance");if(!gl)return;gl.innerHTML="";
+var card=document.createElement("div");card.className="card cp";card.style.marginBottom="10px";
 var calPct=m.cal?Math.min(100,Math.round(tc/m.cal*100)):0;
 var remain=m.cal?m.cal-tc:null;
-card.innerHTML=”<div style='margin-bottom:10px'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.36)'>CALORIES TODAY</div><div style='display:flex;align-items:baseline;gap:6px;margin-top:3px'><span style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:36px;line-height:1;color:#A855F7'>”+tc+”</span><span style='font-size:13px;color:rgba(255,255,255,0.36)'>”+(m.cal?”/ “+m.cal+” kcal”:””)+”</span><span style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:15px;color:"+(remain!==null&&remain<=0?"#22c55e":"#A855F7")+";margin-left:auto'>”+(remain!==null?(remain>0?remain+” left”:“Done!”):””)+”</span></div></div><div style='height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden;margin-bottom:12px'><div style='height:100%;width:"+calPct+"%;background:linear-gradient(90deg,#A855F7,#06b6d4);border-radius:4px'></div></div>”;
-var grid=document.createElement(“div”);grid.style.cssText=“display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px”;
-[[“PROTEIN”,tp,m.pro,”#60a5fa”],[“CARBS”,tcarb,m.carb,”#34d399”],[“FAT”,tf,m.fat,”#fbbf24”]].forEach(function(x){
+card.innerHTML="<div style='margin-bottom:10px'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.36)'>CALORIES TODAY</div><div style='display:flex;align-items:baseline;gap:6px;margin-top:3px'><span style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:36px;line-height:1;color:#A855F7'>"+tc+"</span><span style='font-size:13px;color:rgba(255,255,255,0.36)'>"+(m.cal?"/ "+m.cal+" kcal":"")+"</span><span style='font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:15px;color:"+(remain!==null&&remain<=0?"#22c55e":"#A855F7")+";margin-left:auto'>"+(remain!==null?(remain>0?remain+" left":"Done!"):"")+"</span></div></div><div style='height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden;margin-bottom:12px'><div style='height:100%;width:"+calPct+"%;background:linear-gradient(90deg,#A855F7,#06b6d4);border-radius:4px'></div></div>";
+var grid=document.createElement("div");grid.style.cssText="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px";
+[["PROTEIN",tp,m.pro,"#60a5fa"],["CARBS",tcarb,m.carb,"#34d399"],["FAT",tf,m.fat,"#fbbf24"]].forEach(function(x){
 var pct=x[2]?Math.min(100,Math.round(x[1]/x[2]*100)):0;var over=x[2]&&x[1]>x[2];
-var box=document.createElement(“div”);
-box.innerHTML=”<div style='display:flex;justify-content:space-between;margin-bottom:4px'><span style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:"+(over?"#f87171":x[3])+"'>”+x[0]+”</span><span style='font-size:11px;color:rgba(255,255,255,0.36)'>”+x[1]+“g</span></div><div style='height:5px;border-radius:3px;background:rgba(255,255,255,0.07);overflow:hidden'><div style='height:100%;width:"+pct+"%;background:"+(over?"#f87171":x[3])+";border-radius:3px'></div></div><div style='font-size:10px;color:rgba(255,255,255,0.36);margin-top:3px'>”+(x[2]?”/ “+x[2]+“g”:””)+”</div>”;
+var box=document.createElement("div");
+box.innerHTML="<div style='display:flex;justify-content:space-between;margin-bottom:4px'><span style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:12px;color:"+(over?"#f87171":x[3])+"'>"+x[0]+"</span><span style='font-size:11px;color:rgba(255,255,255,0.36)'>"+x[1]+"g</span></div><div style='height:5px;border-radius:3px;background:rgba(255,255,255,0.07);overflow:hidden'><div style='height:100%;width:"+pct+"%;background:"+(over?"#f87171":x[3])+";border-radius:3px'></div></div><div style='font-size:10px;color:rgba(255,255,255,0.36);margin-top:3px'>"+(x[2]?"/ "+x[2]+"g":"")+"</div>";
 grid.appendChild(box);
 });
 card.appendChild(grid);
 gl.appendChild(card);
-var sg=document.createElement(“div”);sg.className=“stat-grid”;
-var wb=document.createElement(“div”);wb.className=“stat-box”;wb.innerHTML=”<div class='stat-num'>”+(WA[TODAY]||0)+”</div><div class='stat-lbl'>Cups of Water</div>”;
-var sb=document.createElement(“div”);sb.className=“stat-box”;sb.innerHTML=”<div class='stat-num'>”+wk.length+”</div><div class='stat-lbl'>Sessions This Week</div>”;
+var sg=document.createElement("div");sg.className="stat-grid";
+var wb=document.createElement("div");wb.className="stat-box";wb.innerHTML="<div class='stat-num'>"+(WA[TODAY]||0)+"</div><div class='stat-lbl'>Cups of Water</div>";
+var sb=document.createElement("div");sb.className="stat-box";sb.innerHTML="<div class='stat-num'>"+wk.length+"</div><div class='stat-lbl'>Sessions This Week</div>";
 sg.appendChild(wb);sg.appendChild(sb);gl.appendChild(sg);
 }
 
 function saveAll(){
-var h=gel(“inh”),w=gel(“inw”);
+var h=gel("inh"),w=gel("inw");
 if(h&&h.value)ST.height=h.value;
 if(w&&w.value)ST.weight=w.value;
-saveKey(PFX+“stats”,ST);saveKey(PFX+“logs”,WL);saveKey(PFX+“water”,WA);
-saveKey(PFX+“liftprs”,LP);saveKey(PFX+“runprs”,RP);saveKey(PFX+“meals”,ML);
+saveKey(PFX+"stats",ST);saveKey(PFX+"logs",WL);saveKey(PFX+"water",WA);
+saveKey(PFX+"liftprs",LP);saveKey(PFX+"runprs",RP);saveKey(PFX+"meals",ML);
 }
-window.addEventListener(“pagehide”,function(){saveAll();},true);
-window.addEventListener(“beforeunload”,function(){saveAll();},true);
-window.addEventListener(“visibilitychange”,function(){if(document.visibilityState===“hidden”)saveAll();},true);
+window.addEventListener("pagehide",function(){saveAll();},true);
+window.addEventListener("beforeunload",function(){saveAll();},true);
+window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")saveAll();},true);
 setInterval(saveAll,15000);
 
-var LNAMES=[“Back Squat”,“Deadlift”,“Bench Press”,“Overhead Press”,“Barbell Row”,“Pull-ups (max reps)”,“Push-ups (max reps)”];
-var SNAMES=[“100m”,“200m”,“400m”,“60m”,“40yd Dash”,“Broad Jump (ft)”,“Vertical Jump (in)”,“1 Mile Run”];
+var LNAMES=["Back Squat","Deadlift","Bench Press","Overhead Press","Barbell Row","Pull-ups (max reps)","Push-ups (max reps)"];
+var SNAMES=["100m","200m","400m","60m","40yd Dash","Broad Jump (ft)","Vertical Jump (in)","1 Mile Run"];
 
 var GPROG=[
-{day:“MON”,name:“Sprint Mechanics”,ex:[{n:“A-Skip Drills”,s:3,r:“30m”,tip:“High knee drive every step”},{n:“Acceleration Runs”,s:6,r:“30m”,tip:“First 10m decides races”},{n:“Flying 30s”,s:4,r:“30m”,tip:“Rolling start - full speed”},{n:“Back Squat”,s:4,r:6,intensity:0.78,tip:“Explode out of the hole”},{n:“Push-ups”,s:3,r:“max”,tip:“Full range - chest to floor”}]},
-{day:“TUE”,name:“Leg Strength”,ex:[{n:“Back Squat”,s:4,r:6,intensity:0.78,tip:“Control down, explode up”},{n:“Single-Leg RDL”,s:3,r:10,intensity:0.30,tip:“Key for hamstring strength”},{n:“Glute Bridge”,s:4,r:15,tip:“Drive hips up, squeeze at top”},{n:“Nordic Hamstring Curl”,s:3,r:6,tip:“Number 1 injury prevention for sprinters”},{n:“Leg Press”,s:3,r:10,intensity:0.70,tip:“Full range”}]},
-{day:“WED”,name:“Core”,ex:[{n:“Hanging Leg Raises”,s:3,r:12,tip:“Slow and controlled”},{n:“Ab Wheel”,s:3,r:10,tip:“Core locked - hips do not drop”},{n:“V-Ups”,s:3,r:15,tip:“Full contraction at top”},{n:“Side Plank”,s:3,r:“45 sec”,tip:“Hips up - no sagging”},{n:“Push-ups”,s:2,r:“max”,tip:“Finisher”}]},
-{day:“THU”,name:“Speed Endurance”,ex:[{n:“200m Repeats”,s:4,r:“200m”,tip:“85% effort - 3 min rest”},{n:“Bounding”,s:3,r:“40m”,tip:“Max distance per stride”},{n:“Hurdle Hops”,s:3,r:8,tip:“Minimize ground contact”},{n:“Build-up Runs”,s:4,r:“60m”,tip:“50% build to 95%”}]},
-{day:“FRI”,name:“Power and Plyos”,ex:[{n:“Box Jump”,s:5,r:4,tip:“Max height - step down”},{n:“Depth Drop to Sprint”,s:4,r:3,tip:“React off landing immediately”},{n:“Lateral Bound”,s:3,r:“8 ea”,tip:“Max distance, stick landing”},{n:“Sprint Strides”,s:6,r:“40m”,tip:“95% effort - full recovery”}]},
-{day:“SAT”,name:“Upper Body”,ex:[{n:“Bench Press”,s:3,r:10,intensity:0.65,tip:“Arm drive matters in sprinting”},{n:“Push-ups”,s:3,r:“max”,tip:“Full range - track improvements”},{n:“Dumbbell Row”,s:3,r:12,intensity:0.40,tip:“Full stretch, full squeeze”},{n:“Overhead Press”,s:3,r:10,intensity:0.65,tip:“No arching lower back”},{n:“Plank Hold”,s:3,r:“60 sec”,tip:“Perfect position”}]},
-{day:“SUN”,name:“Active Recovery”,ex:[{n:“Easy Jog”,s:1,r:“15 min”,tip:“Very light - recovery only”},{n:“Hip Flexor Stretch”,s:2,r:“60 sec ea”,tip:“Critical for sprinters”},{n:“Hamstring Stretch”,s:2,r:“60 sec ea”,tip:“Slow static hold”},{n:“Foam Roll”,s:1,r:“10 min”,tip:“IT band, quads, calves”}]}
+{day:"MON",name:"Sprint Mechanics",ex:[{n:"A-Skip Drills",s:3,r:"30m",tip:"High knee drive every step"},{n:"Acceleration Runs",s:6,r:"30m",tip:"First 10m decides races"},{n:"Flying 30s",s:4,r:"30m",tip:"Rolling start - full speed"},{n:"Back Squat",s:4,r:6,intensity:0.78,tip:"Explode out of the hole"},{n:"Push-ups",s:3,r:"max",tip:"Full range - chest to floor"}]},
+{day:"TUE",name:"Leg Strength",ex:[{n:"Back Squat",s:4,r:6,intensity:0.78,tip:"Control down, explode up"},{n:"Single-Leg RDL",s:3,r:10,intensity:0.30,tip:"Key for hamstring strength"},{n:"Glute Bridge",s:4,r:15,tip:"Drive hips up, squeeze at top"},{n:"Nordic Hamstring Curl",s:3,r:6,tip:"Number 1 injury prevention for sprinters"},{n:"Leg Press",s:3,r:10,intensity:0.70,tip:"Full range"}]},
+{day:"WED",name:"Core",ex:[{n:"Hanging Leg Raises",s:3,r:12,tip:"Slow and controlled"},{n:"Ab Wheel",s:3,r:10,tip:"Core locked - hips do not drop"},{n:"V-Ups",s:3,r:15,tip:"Full contraction at top"},{n:"Side Plank",s:3,r:"45 sec",tip:"Hips up - no sagging"},{n:"Push-ups",s:2,r:"max",tip:"Finisher"}]},
+{day:"THU",name:"Speed Endurance",ex:[{n:"200m Repeats",s:4,r:"200m",tip:"85% effort - 3 min rest"},{n:"Bounding",s:3,r:"40m",tip:"Max distance per stride"},{n:"Hurdle Hops",s:3,r:8,tip:"Minimize ground contact"},{n:"Build-up Runs",s:4,r:"60m",tip:"50% build to 95%"}]},
+{day:"FRI",name:"Power and Plyos",ex:[{n:"Box Jump",s:5,r:4,tip:"Max height - step down"},{n:"Depth Drop to Sprint",s:4,r:3,tip:"React off landing immediately"},{n:"Lateral Bound",s:3,r:"8 ea",tip:"Max distance, stick landing"},{n:"Sprint Strides",s:6,r:"40m",tip:"95% effort - full recovery"}]},
+{day:"SAT",name:"Upper Body",ex:[{n:"Bench Press",s:3,r:10,intensity:0.65,tip:"Arm drive matters in sprinting"},{n:"Push-ups",s:3,r:"max",tip:"Full range - track improvements"},{n:"Dumbbell Row",s:3,r:12,intensity:0.40,tip:"Full stretch, full squeeze"},{n:"Overhead Press",s:3,r:10,intensity:0.65,tip:"No arching lower back"},{n:"Plank Hold",s:3,r:"60 sec",tip:"Perfect position"}]},
+{day:"SUN",name:"Active Recovery",ex:[{n:"Easy Jog",s:1,r:"15 min",tip:"Very light - recovery only"},{n:"Hip Flexor Stretch",s:2,r:"60 sec ea",tip:"Critical for sprinters"},{n:"Hamstring Stretch",s:2,r:"60 sec ea",tip:"Slow static hold"},{n:"Foam Roll",s:1,r:"10 min",tip:"IT band, quads, calves"}]}
 ];
 
 var HPROG=[
-{day:“MON”,name:“Sprint Power”,ex:[{n:“A-Skip Drills”,s:3,r:“30m”,tip:“High knees, arms pumping”},{n:“Acceleration Runs”,s:6,r:“30m”,tip:“Explode from standstill”},{n:“Jump Squats”,s:4,r:12,tip:“Land soft, explode up”},{n:“Single-Leg Glute Bridge”,s:3,r:“12 ea”,tip:“Drive hips up, hold 1 sec”},{n:“Push-ups”,s:3,r:“max”,tip:“Chest to floor”}]},
-{day:“TUE”,name:“Leg Strength”,ex:[{n:“Bodyweight Squats”,s:4,r:20,tip:“Sit back and down, chest up”},{n:“Bulgarian Split Squat”,s:3,r:“12 ea”,tip:“Back foot elevated”},{n:“Glute Bridge”,s:4,r:20,tip:“Drive hips up, squeeze hard”},{n:“Nordic Curl”,s:3,r:6,tip:“Partner holds feet”},{n:“Wall Sit”,s:3,r:“60 sec”,tip:“Thighs parallel to floor”}]},
-{day:“WED”,name:“Core Circuit”,ex:[{n:“Plank Hold”,s:3,r:“60 sec”,tip:“Body straight as a board”},{n:“Side Plank”,s:3,r:“45 sec ea”,tip:“Hips up, do not sag”},{n:“V-Ups”,s:3,r:15,tip:“Meet hands to feet at top”},{n:“Mountain Climbers”,s:3,r:“30 sec”,tip:“Fast feet - keep hips down”},{n:“Push-ups”,s:3,r:“max”,tip:“Full range - track progress”}]},
-{day:“THU”,name:“Speed Endurance”,ex:[{n:“200m Repeats”,s:4,r:“200m”,tip:“85% effort - time yourself”},{n:“Bounding”,s:3,r:“40m”,tip:“Max stride distance”},{n:“High Knees”,s:4,r:“30 sec”,tip:“Fast - pump those arms”},{n:“Hollow Body Hold”,s:3,r:“40 sec”,tip:“Arms overhead, back flat”}]},
-{day:“FRI”,name:“Plyos”,ex:[{n:“Jump Squats”,s:5,r:10,tip:“Max height every rep”},{n:“Lateral Bounds”,s:3,r:“8 ea”,tip:“Push off one foot, stick landing”},{n:“Tuck Jumps”,s:3,r:8,tip:“Knees to chest - land soft”},{n:“Sprint Strides”,s:6,r:“40m”,tip:“95% effort - full recovery”}]},
-{day:“SAT”,name:“Upper Body”,ex:[{n:“Push-ups”,s:4,r:“max”,tip:“Chest to floor - track reps”},{n:“Pike Push-ups”,s:3,r:10,tip:“Hips high - works shoulders”},{n:“Tricep Dips”,s:3,r:12,tip:“Elbows back - not out”},{n:“Superman Holds”,s:3,r:12,tip:“Lift chest and legs - hold 2 sec”},{n:“Russian Twists”,s:3,r:20,tip:“Feet up for extra challenge”}]},
-{day:“SUN”,name:“Active Recovery”,ex:[{n:“Easy Walk or Jog”,s:1,r:“20 min”,tip:“Conversational pace”},{n:“Hip Flexor Stretch”,s:2,r:“60 sec ea”,tip:“Hold and breathe”},{n:“Hamstring Stretch”,s:2,r:“60 sec ea”,tip:“No bouncing”},{n:“Foam Roll”,s:1,r:“10 min”,tip:“IT band and calves”}]}
+{day:"MON",name:"Sprint Power",ex:[{n:"A-Skip Drills",s:3,r:"30m",tip:"High knees, arms pumping"},{n:"Acceleration Runs",s:6,r:"30m",tip:"Explode from standstill"},{n:"Jump Squats",s:4,r:12,tip:"Land soft, explode up"},{n:"Single-Leg Glute Bridge",s:3,r:"12 ea",tip:"Drive hips up, hold 1 sec"},{n:"Push-ups",s:3,r:"max",tip:"Chest to floor"}]},
+{day:"TUE",name:"Leg Strength",ex:[{n:"Bodyweight Squats",s:4,r:20,tip:"Sit back and down, chest up"},{n:"Bulgarian Split Squat",s:3,r:"12 ea",tip:"Back foot elevated"},{n:"Glute Bridge",s:4,r:20,tip:"Drive hips up, squeeze hard"},{n:"Nordic Curl",s:3,r:6,tip:"Partner holds feet"},{n:"Wall Sit",s:3,r:"60 sec",tip:"Thighs parallel to floor"}]},
+{day:"WED",name:"Core Circuit",ex:[{n:"Plank Hold",s:3,r:"60 sec",tip:"Body straight as a board"},{n:"Side Plank",s:3,r:"45 sec ea",tip:"Hips up, do not sag"},{n:"V-Ups",s:3,r:15,tip:"Meet hands to feet at top"},{n:"Mountain Climbers",s:3,r:"30 sec",tip:"Fast feet - keep hips down"},{n:"Push-ups",s:3,r:"max",tip:"Full range - track progress"}]},
+{day:"THU",name:"Speed Endurance",ex:[{n:"200m Repeats",s:4,r:"200m",tip:"85% effort - time yourself"},{n:"Bounding",s:3,r:"40m",tip:"Max stride distance"},{n:"High Knees",s:4,r:"30 sec",tip:"Fast - pump those arms"},{n:"Hollow Body Hold",s:3,r:"40 sec",tip:"Arms overhead, back flat"}]},
+{day:"FRI",name:"Plyos",ex:[{n:"Jump Squats",s:5,r:10,tip:"Max height every rep"},{n:"Lateral Bounds",s:3,r:"8 ea",tip:"Push off one foot, stick landing"},{n:"Tuck Jumps",s:3,r:8,tip:"Knees to chest - land soft"},{n:"Sprint Strides",s:6,r:"40m",tip:"95% effort - full recovery"}]},
+{day:"SAT",name:"Upper Body",ex:[{n:"Push-ups",s:4,r:"max",tip:"Chest to floor - track reps"},{n:"Pike Push-ups",s:3,r:10,tip:"Hips high - works shoulders"},{n:"Tricep Dips",s:3,r:12,tip:"Elbows back - not out"},{n:"Superman Holds",s:3,r:12,tip:"Lift chest and legs - hold 2 sec"},{n:"Russian Twists",s:3,r:20,tip:"Feet up for extra challenge"}]},
+{day:"SUN",name:"Active Recovery",ex:[{n:"Easy Walk or Jog",s:1,r:"20 min",tip:"Conversational pace"},{n:"Hip Flexor Stretch",s:2,r:"60 sec ea",tip:"Hold and breathe"},{n:"Hamstring Stretch",s:2,r:"60 sec ea",tip:"No bouncing"},{n:"Foam Roll",s:1,r:"10 min",tip:"IT band and calves"}]}
 ];
 
 function calcW(n,i){
 if(!i)return null;var bw=getBW();
-var sq=getPRN(LP,“Back Squat”),bp=getPRN(LP,“Bench Press”),dl=getPRN(LP,“Deadlift”);
-var m={“Back Squat”:sq,“Single-Leg RDL”:dl?dl*0.3:sq?sq*0.28:null,“Glute Bridge”:bw?bw*0.85:null,“Leg Press”:sq?sq*1.4:(bw?bw*1.4:null),“Bench Press”:bp,“Overhead Press”:bp?bp*0.62:null,“Dumbbell Row”:bp?bp*0.4:null};
+var sq=getPRN(LP,"Back Squat"),bp=getPRN(LP,"Bench Press"),dl=getPRN(LP,"Deadlift");
+var m={"Back Squat":sq,"Single-Leg RDL":dl?dl*0.3:sq?sq*0.28:null,"Glute Bridge":bw?bw*0.85:null,"Leg Press":sq?sq*1.4:(bw?bw*1.4:null),"Bench Press":bp,"Overhead Press":bp?bp*0.62:null,"Dumbbell Row":bp?bp*0.4:null};
 var b=m[n];if(!b)return null;return r5(b*i);
 }
 
 function getGoals(){
-var bw=getBW(),sq=getPRN(LP,“Back Squat”),pu=getPRN(LP,“Push-ups (max reps)”);
-var m100=RP[“100m”]?parseFloat(RP[“100m”].val):null;
-var m200=RP[“200m”]?parseFloat(RP[“200m”].val):null;
+var bw=getBW(),sq=getPRN(LP,"Back Squat"),pu=getPRN(LP,"Push-ups (max reps)");
+var m100=RP["100m"]?parseFloat(RP["100m"].val):null;
+var m200=RP["200m"]?parseFloat(RP["200m"].val):null;
 var g=[];
-g.push(m100?(m100<=13.0?{txt:“100m under 13s DONE (”+m100+“s). Next: 12.5s”,done:true}:{txt:“100m under 13.0s  (current: “+m100+“s)”,done:false}):{txt:“100m under 13.0 seconds”,done:false});
-g.push(m200?(m200<=28.0?{txt:“200m under 28s DONE (”+m200+“s). Next: 27s”,done:true}:{txt:“200m under 28.0s  (current: “+m200+“s)”,done:false}):{txt:“200m under 28.0 seconds”,done:false});
-if(bw){var t=r5(bw*1.25);g.push(sq?(sq>=bw*1.25?{txt:“Squat 1.25x BW DONE (”+sq+” lbs). Next: “+r5(bw*1.5)+” lbs”,done:true}:{txt:“Squat 1.25x bodyweight - “+t+” lbs  (now: “+sq+” lbs)”,done:false}):{txt:“Squat 1.25x bodyweight - target “+t+” lbs”,done:false});}
-else g.push({txt:“Squat 1.25x bodyweight - enter weight to see target”,done:false});
-g.push(pu?(pu>=8?{txt:“8 push-ups DONE (”+pu+”). Next: 15 reps”,done:true}:{txt:“8 consecutive push-ups  (now: “+pu+”)”,done:false}):{txt:“8 consecutive push-ups”,done:false});
+g.push(m100?(m100<=13.0?{txt:"100m under 13s DONE ("+m100+"s). Next: 12.5s",done:true}:{txt:"100m under 13.0s (current: "+m100+"s)",done:false}):{txt:"100m under 13.0 seconds",done:false});
+g.push(m200?(m200<=28.0?{txt:"200m under 28s DONE ("+m200+"s). Next: 27s",done:true}:{txt:"200m under 28.0s (current: "+m200+"s)",done:false}):{txt:"200m under 28.0 seconds",done:false});
+if(bw){var t=r5(bw*1.25);g.push(sq?(sq>=bw*1.25?{txt:"Squat 1.25x BW DONE ("+sq+" lbs). Next: "+r5(bw*1.5)+" lbs",done:true}:{txt:"Squat 1.25x bodyweight - "+t+" lbs (now: "+sq+" lbs)",done:false}):{txt:"Squat 1.25x bodyweight - target "+t+" lbs",done:false});}
+else g.push({txt:"Squat 1.25x bodyweight - enter weight to see target",done:false});
+g.push(pu?(pu>=8?{txt:"8 push-ups DONE ("+pu+"). Next: 15 reps",done:true}:{txt:"8 consecutive push-ups (now: "+pu+")",done:false}):{txt:"8 consecutive push-ups",done:false});
 return g;
 }
 
-function saveStats(){if(gel(“inh”))ST.height=gel(“inh”).value;if(gel(“inw”))ST.weight=gel(“inw”).value;saveKey(PFX+“stats”,ST);}
+function saveStats(){if(gel("inh"))ST.height=gel("inh").value;if(gel("inw"))ST.weight=gel("inw").value;saveKey(PFX+"stats",ST);}
 
 function renderHome(){
 var bw=getBW(),d=GPROG[TI];
-gel(“tlbl”).textContent=“TODAY - “+d.day;
-gel(“tname”).textContent=d.name;
-gel(“hdr-sub”).textContent=“Track - Sprints”+(bw?” - “+bw+” lbs”:””)+(ST.height?” - “+ST.height:””);
-gel(“bwh”).style.display=bw?“none”:“block”;
+gel("tlbl").textContent="TODAY - "+d.day;
+gel("tname").textContent=d.name;
+gel("hdr-sub").textContent="Track - Sprints"+(bw?" - "+bw+" lbs":"")+(ST.height?" - "+ST.height:"");
+gel("bwh").style.display=bw?"none":"block";
 renderHomeGlance();renderGoals2();renderRecent();
 }
 
 function renderGoals2(){
-var gs=getGoals(),gl=gel(“goals”);gl.innerHTML=””;
+var gs=getGoals(),gl=gel("goals");gl.innerHTML="";
 gs.forEach(function(g,i){
-var row=document.createElement(“div”);row.style.cssText=“display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:”+(i<gs.length-1?“1px solid rgba(255,255,255,0.07)”:“none”);
-var dot=document.createElement(“div”);dot.style.cssText=“width:7px;height:7px;border-radius:50%;background:”+(g.done?”#22c55e”:”#A855F7”)+”;flex-shrink:0;margin-top:5px”;
-var txt=document.createElement(“div”);txt.style.cssText=“font-size:13px;line-height:1.5;color:”+(g.done?”#86efac”:”#edf0f7”);txt.textContent=g.txt;
+var row=document.createElement("div");row.style.cssText="display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:"+(i<gs.length-1?"1px solid rgba(255,255,255,0.07)":"none");
+var dot=document.createElement("div");dot.style.cssText="width:7px;height:7px;border-radius:50%;background:"+(g.done?"#22c55e":"#A855F7")+";flex-shrink:0;margin-top:5px";
+var txt=document.createElement("div");txt.style.cssText="font-size:13px;line-height:1.5;color:"+(g.done?"#86efac":"#edf0f7");txt.textContent=g.txt;
 row.appendChild(dot);row.appendChild(txt);gl.appendChild(row);
 });
 }
 
 function renderRecent(){
-gel(“rech”).style.display=WL.length?“block”:“none”;
-var rl=gel(“reclist”);rl.innerHTML=””;
+gel("rech").style.display=WL.length?"block":"none";
+var rl=gel("reclist");rl.innerHTML="";
 WL.slice(0,4).forEach(function(log){
-var d=document.createElement(“div”);d.style.cssText=“border-left:3px solid #A855F7;padding-left:14px;margin-bottom:14px”;
-d.innerHTML=”<div style='display:flex;justify-content:space-between'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:17px'>”+log.ex+”</div><div style='font-size:11px;color:rgba(255,255,255,0.36)'>”+log.date+”</div></div><div style='font-size:13px;color:rgba(255,255,255,0.42);margin-top:3px'>”+log.sets.map(function(s){return s.w?s.w+“lbs x “+s.r:s.r;}).join(” - “)+”</div>”+(log.note?”<div style='font-size:12px;color:rgba(255,255,255,0.36);font-style:italic;margin-top:2px'>”+log.note+”</div>”:””);
+var d=document.createElement("div");d.style.cssText="border-left:3px solid #A855F7;padding-left:14px;margin-bottom:14px";
+d.innerHTML="<div style='display:flex;justify-content:space-between'><div style='font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:17px'>"+log.ex+"</div><div style='font-size:11px;color:rgba(255,255,255,0.36)'>"+log.date+"</div></div><div style='font-size:13px;color:rgba(255,255,255,0.42);margin-top:3px'>"+log.sets.map(function(s){return s.w?s.w+"lbs x "+s.r:s.r;}).join(" - ")+"</div>"+(log.note?"<div style='font-size:12px;color:rgba(255,255,255,0.36);font-style:italic;margin-top:2px'>"+log.note+"</div>":"");
 rl.appendChild(d);
 });
 }
 
-var PFX=‘cam7_’;
+var PFX="cam7_";
 var WGOAL=12;
-var TODAY=new Date().toLocaleDateString(‘en-US’);
+var TODAY=new Date().toLocaleDateString("en-US");
 var DOW=[6,0,1,2,3,4,5];
 var TI=DOW[new Date().getDay()];
-var ST=loadKey(PFX+‘stats’,{height:’’,weight:’’});
-var WL=loadKey(PFX+‘logs’,[]);
-var WA=loadKey(PFX+‘water’,{});
-var LP=loadKey(PFX+‘liftprs’,{});
-var RP=loadKey(PFX+‘runprs’,{});
-var ML=loadKey(PFX+‘meals’,{});
-var CV=‘home’,CPT=‘gym’,CDAY=null,PRTAB=‘lifts’,NT=‘meals’,FT=‘search’,SC=1;
+var ST=loadKey(PFX+"stats",{height:"",weight:""});
+var WL=loadKey(PFX+"logs",[]);
+var WA=loadKey(PFX+"water",{});
+var LP=loadKey(PFX+"liftprs",{});
+var RP=loadKey(PFX+"runprs",{});
+var ML=loadKey(PFX+"meals",{});
+var CV="home",CPT="gym",CDAY=null,PRTAB="lifts",NT="meals",FT="search",SC=1;
 (function(){
-var h=gel(‘inh’),w=gel(‘inw’);
-if(h)h.value=ST.height||’’;
-if(w)w.value=ST.weight||’’;
-var installed=window.navigator.standalone||window.matchMedia(’(display-mode: standalone)’).matches;
-gel(‘ibanner’).style.display=(installed||_getC(‘ib’))?‘none’:‘block’;
+var h=gel("inh"),w=gel("inw");
+if(h)h.value=ST.height||"";
+if(w)w.value=ST.weight||"";
+var installed=window.navigator.standalone||window.matchMedia("(display-mode: standalone)").matches;
+gel("ibanner").style.display=(installed||_getC("ib"))?"none":"block";
 })();
 resetSets();
-setPRTab(‘lifts’);
+setPRTab("lifts");
 renderHome();
 renderWater();
 </script>
-
 </body>
 </html>
