@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Camille">
 <meta name="theme-color" content="#07080e">
 <title>Camille - Athlete Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 :root{--acc:#A855F7;--acc2:#06b6d4;--bg:#07080e;--card:#0e0f1a;--c2:#13141f;--bor:rgba(255,255,255,0.07);--mut:rgba(255,255,255,0.36);--fg:#edf0f7;--acc-bg:rgba(168,85,247,0.09);--acc-bor:rgba(168,85,247,0.25)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -869,5 +869,15 @@ if(w)w.value=ST.weight||’’;
 // Prune old logs on startup
 WL=WL.filter(function(l){return daysAgo(l.date)<=30;});
 })();
-resetSets();setPRTab(‘lifts’);renderHome();renderWater();
+try{
+resetSets();
+setPRTab(‘lifts’);
+renderHome();
+renderWater();
+}catch(e){
+var errDiv=document.createElement(‘div’);
+errDiv.style.cssText=‘position:fixed;top:0;left:0;right:0;bottom:0;background:#000;color:#f87171;font-family:monospace;font-size:13px;padding:20px;z-index:9999;overflow:auto;white-space:pre-wrap’;
+errDiv.textContent=‘JS ERROR: ‘+e.message+’\n\n’+e.stack;
+document.body.appendChild(errDiv);
+}
 </script></body></html>
